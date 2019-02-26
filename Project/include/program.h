@@ -5,6 +5,7 @@
 
 #include <cstdint>
 #include <memory>
+#include <unordered_map>
 #include <vector>
 
 class Program {
@@ -25,8 +26,12 @@ private:
   // and their location. Use a std::unordered_map
   // to relate uniforms names and locations
 
+  std::unordered_map<std::string, uint32_t> m_mUniformsNamesPos;
+  std::vector<std::string> m_vUniformsNames;
+  std::vector<uint32_t> m_vUniformsLocations;
   std::vector<std::weak_ptr<Shader>> m_vShaders;
   uint32_t m_uId = 0;
+  uint32_t m_uUniformsCount = 0;
   bool m_bReady = false;
   bool m_bLinked = false;
 };

@@ -76,4 +76,36 @@ void OpenGLImplementation::linkProgram(Program* pProgram) {
   // check if the linking went OK
   pProgram->m_bLinked = true;
 }
+
+void OpenGLImplementation::getUniformsCount(Program* pProgram) {
+  int32_t iCount = 0;
+  glGetProgramiv(pProgram->m_uId, GL_ACTIVE_UNIFORMS, &iCount);
+  assert(iCount >= 0 && "OpenGLImplementation::getUniformCount -> count less than 0\n");
+  pProgram->m_uUniformsCount = (uint32_t)iCount;
+}
+
+void OpenGLImplementation::getUniformsNames(Program *pProgram) {
+  const uint32_t uBufferSize = 256;
+  char* pBuffer = (char*)malloc(uBufferSize); // 256 character max for the uniform name
+  
+  int32_t iLength = 0;
+  int32_t iSize = 0;
+  GLenum eType = GL_NONE;
+  for (uint32_t i = 0; i < pProgram->m_uUniformsCount; ++i) {
+    iLength = 0;
+    iSize = 0;
+    eType = GL_NONE;
+
+    glGetActiveUniform(pProgram->m_uId, i, uBufferSize, &iLength, &iSize, &eType,
+      pBuffer);
+    
+    // TODO: @oprietos -> check if there was an error
+    pProgram->m_vUniformsNames.emplace_back(std::string(pBuffer));
+    pProgram->m_vUniformsLocations.push_back(getUniformLocation(pProgram, std::string(pBuffer)));
+  }
+}
+
+int32_t OpenGLImplementation::getUniformLocation(Program* pProgram, const std::string& sUniformName) {
+  return glGetUniformLocation(pProgram->m_uId, sUniformName.c_str());
+}
 // [ \PROGRAMS ]
