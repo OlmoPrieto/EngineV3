@@ -1,11 +1,9 @@
 #include "component.h"
 
-template <typename T>
-Component<T>::Component() {
+Component::Component() {
 
 }
 
-template <typename T>
-Component<T>::~Component() {
+Component::~Component() {
 
 }

@@ -9,11 +9,10 @@ Engine::~Engine() {
 }
 
 Engine* Engine::Instance() {
-  static Engine engine;
-  return &engine;
+  static Engine oEngine;
+  return &oEngine;
 }
 
-template <typename T>
-Component<T>* Engine::CreateComponent() {
-
+Component* Engine::CreateComponent() {
+  return &Component();
 }

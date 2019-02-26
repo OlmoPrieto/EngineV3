@@ -7,14 +7,13 @@
 class Engine {
 public:
   static Engine* Instance();
-  template <typename T>
-  Component<T>* CreateComponent();
+  Component* CreateComponent();
 
 private:
   Engine();
   ~Engine();
 
-  Scene m_scene;
+  Scene m_oScene;
 };
 
 #endif  // __ENGINE_H__
