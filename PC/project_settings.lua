@@ -15,9 +15,9 @@ solution "Project"
     location ( pd .. "/" ) 
     targetdir (pd .. "/bin/")
 
-    buildoptions_cpp("-std=c++14")
+    buildoptions_cpp("-std=c++17")
   
-    buildoptions_objcpp("-std=c++14")
+    buildoptions_objcpp("-std=c++17")
     includedirs { 
       pd .. "/include", 
       pd .. "/dependencies",

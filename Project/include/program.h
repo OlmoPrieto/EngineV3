@@ -13,8 +13,8 @@ public:
   Program();
   ~Program();
 
-  inline bool isReady() const;
-  inline bool isLinked() const;
+  bool isReady() const { return m_bReady; }
+  bool isLinked() const { return m_bLinked; }
   void attachShader(Shader* pShader);
 
 private:

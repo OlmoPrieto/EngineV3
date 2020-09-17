@@ -1,13 +1,25 @@
 #include "material.h"
 
-Material::Material() {
+#include "shader.h"
 
+const float Material::m_fVersion = 0.0;
+
+Material::Material() 
+{
+  
 }
 
-Material::~Material() {
+Material::Material(const std::string& _sName, const std::string& _sMaterialDefinitionPath)
+  : m_sName(_sName)
+  , m_sMaterialDefinitionPath(_sMaterialDefinitionPath)
+{
+  // Load definition
+  // --
 
+  
 }
 
-inline std::string Material::getName() const {
-  return m_sName;
+Material::~Material() 
+{
+
 }

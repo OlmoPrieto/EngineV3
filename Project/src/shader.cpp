@@ -1,17 +1,18 @@
 #include "shader.h"
 
-Shader::Shader() {
+Shader::Shader()
+{
 
 }
 
-Shader::Shader(const std::string& sSource) {
-  m_sCode = sSource;
+Shader::Shader(EType _eType, const std::string& _sSource)
+  : m_eType(_eType)
+  , m_sCode(_sSource)
+{
+
 }
 
-Shader::~Shader() {
-  
-}
+Shader::~Shader()
+{
 
-inline bool Shader::isReady() const {
-  return m_bReady;
 }

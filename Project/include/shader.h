@@ -12,10 +12,12 @@ public:
     Fragment,
   };
 
-  Shader(const std::string& sSource);
+  Shader(EType _eType, const std::string& _sSource);
   ~Shader();
 
-  inline bool isReady() const;
+  bool isReady() const { return m_bReady; }
+  
+  // TODO: make a method to instant compile the shader
 
 private:
   friend class OpenGLImplementation;
