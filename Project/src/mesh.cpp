@@ -5,15 +5,9 @@ Mesh::Mesh()
 
 }
 
-Mesh::Mesh(const std::string& _sPath)
-  : m_sPath(_sPath)
-{
-
-}
-
-Mesh::Mesh(const std::vector<uint32_t>& _vctVerticesPositions,
-  const std::vector<uint32_t>& _vctVerticesNormals,
-  const std::vector<uint32_t>& _vctVerticesUVs,
+Mesh::Mesh(const std::vector<float>& _vctVerticesPositions,
+  const std::vector<float>& _vctVerticesNormals,
+  const std::vector<float>& _vctVerticesUVs,
   const std::vector<uint32_t>& _vctVerticesIndices)
   : m_vctVerticesPositions(_vctVerticesPositions)
   , m_vctVerticesNormals(_vctVerticesNormals)

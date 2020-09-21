@@ -15,9 +15,9 @@ solution "Project"
     location ( pd .. "/" ) 
     targetdir (pd .. "/bin/")
 
-    buildoptions_cpp("-std=c++17")
-  
-    buildoptions_objcpp("-std=c++17")
+    --buildoptions_cpp("-std=c++17")
+    --buildoptions_objcpp("-std=c++17")
+    
     includedirs { 
       pd .. "/include", 
       pd .. "/dependencies",
@@ -63,6 +63,7 @@ solution "Project"
       }
       defines { "__PLATFORM_WINDOWS__","_GLFW_WIN32", "_GLFW_WGL", "_GLFW_USE_OPENGL" }
       buildoptions_cpp("/Y-")
+      buildoptions_cpp("/std:c++17")
       windowstargetplatformversion "10.0.15063.0"
        
     configuration { "macosx" }
@@ -85,6 +86,8 @@ solution "Project"
         "Cocoa.framework", "OpenGL.framework", "IOKit.framework", "CoreVideo.framework",
       }
       linkoptions { "-framework Cocoa","-framework QuartzCore", "-framework OpenGL", "-framework OpenAL" }
+      buildoptions_cpp("-std=c++17")
+      buildoptions_objcpp("-std=c++17")
       defines { "__PLATFORM_MACOSX__", "_GLFW_COCOA", "_GLFW_NSGL", "_GLFW_USE_OPENGL" }
        
     configuration { "linux" }
@@ -114,6 +117,8 @@ solution "Project"
         "/usr/bin/",
         "/usr/lib/"
       }
+      buildoptions_cpp("-std=c++17")
+      buildoptions_objcpp("-std=c++17")
       defines { "__PLATFORM_LINUX__", "_GLFW_X11", "_GLFW_HAS_GLXGETPROCADDRESS", "_GLFW_GLX", "_GLFW_USE_OPENGL" }
 
     configuration "debug"

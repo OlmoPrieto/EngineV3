@@ -13,8 +13,8 @@ public:
   Program();
   ~Program();
 
-  bool isReady() const { return m_bReady; }
-  bool isLinked() const { return m_bLinked; }
+  bool getIsReady() const { return m_bReady; }
+  bool getIsLinked() const { return m_bLinked; }
   void attachShader(Shader* pShader);
 
 private:
@@ -30,7 +30,7 @@ private:
   std::vector<std::string> m_vUniformsNames;
   std::vector<uint32_t> m_vUniformsLocations;
   std::vector<std::weak_ptr<Shader>> m_vShaders;
-  uint32_t m_uId = 0;
+  int32_t m_uInternalId = -1;
   uint32_t m_uUniformsCount = 0;
   bool m_bReady = false;
   bool m_bLinked = false;

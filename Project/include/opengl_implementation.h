@@ -1,6 +1,7 @@
 #ifndef __OPENGL_IMPLEMENTATION_H__
 #define __OPENGL_IMPLEMENTATION_H__
 
+#include "mesh.h"
 #include "program.h"
 #include "shader.h"
 
@@ -11,16 +12,23 @@ private:
   ~OpenGLImplementation();
 
   // Shaders
-  void createShader(Shader* pShader, Shader::EType eType);
-  void compileShader(Shader* pShader);
+  void createShader(Shader& _oShader_, Shader::EType _eType);
+  void compileShader(Shader& _oShader_);
 
   // Programs
-  void createProgram(Program* pProgram);
-  void attachShader(Shader* pShader, Program* pProgram);
-  void linkProgram(Program* pProgram);
-  void getUniformsCount(Program* pProgram);
-  void getUniformsNames(Program* pProgram);
-  int32_t getUniformLocation(Program* pProgram, const std::string& sUniformName);
+  void createProgram(Program& _oProgram_);
+  void attachShader(Shader& _oShader_, Program& _oProgram_);
+  void linkProgram(Program& _oProgram_);
+  void getUniformsCount(Program& oProgram_);
+  void getUniformsNames(Program& _oProgram_);
+  int32_t getUniformLocation(const Program& _oProgram, const std::string& _sUniformName);
+
+  // Buffers
+  void setData(Mesh& _oMesh_);
+  
+
+  // TODO:
+  // enable vertex attributes array
 };
 
 #endif  // __OPENGL_IMPLEMENTATION_H__
