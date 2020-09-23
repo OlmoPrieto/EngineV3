@@ -2,6 +2,8 @@
 
 #include "shader.h"
 
+// MATERIAL
+
 const float Material::m_fVersion = 0.0;
 
 Material::Material() 
@@ -20,6 +22,19 @@ Material::Material(const std::string& _sName, const std::string& _sMaterialDefin
 }
 
 Material::~Material() 
+{
+
+}
+
+
+// MATERIAL INSTANCE
+MaterialInstance::MaterialInstance(std::shared_ptr<Material> _spMaterial)
+  : m_spMaterial(_spMaterial)
+{
+
+}
+
+MaterialInstance::~MaterialInstance()
 {
 
 }

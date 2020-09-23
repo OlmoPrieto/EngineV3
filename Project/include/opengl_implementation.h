@@ -26,9 +26,12 @@ private:
   // Buffers
   void setData(Mesh& _oMesh_);
   
+  //
+  void enableVertexAttributesPointers(Mesh& _oMesh_, const Program& _oProgram);
+  void disableVertexAttributesPointers(Mesh& _oMesh_, const Program& _oProgram);
 
-  // TODO:
-  // enable vertex attributes array
+  // Render
+  void draw(const Mesh& _oMesh);
 };
 
 #endif  // __OPENGL_IMPLEMENTATION_H__

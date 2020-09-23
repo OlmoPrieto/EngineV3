@@ -157,3 +157,77 @@ void OpenGLImplementation::setData(Mesh& _oMesh_)
   _oMesh_.m_bReady = true;
 }
 // [ \BUFFERS ]
+
+// 
+void OpenGLImplementation::enableVertexAttributesPointers(Mesh& _oMesh_, const Program& _oProgram)
+{
+  glBindBuffer(GL_ARRAY_BUFFER, _oMesh_.m_uInternalId);
+
+  if (_oMesh_.getVerticesPositions().size() > 0)
+  {
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+    _oMesh_.m_bPositionsEnabled = true;
+  }
+  if (_oMesh_.getVerticesNormals().size() > 0)
+  {
+    glEnableVertexAttribArray(1);
+    uint32_t uOffset = 0;
+    if (_oMesh_.m_bPositionsEnabled == true)
+    {
+      uOffset += _oMesh_.getVerticesPositions().size() * sizeof(float);
+    }
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)uOffset);
+    _oMesh_.m_bNormalsEnabled = true;
+  }
+  if (_oMesh_.getVerticesUVs().size() > 0)
+  {
+    glEnableVertexAttribArray(2);
+    uint32_t uOffset = 0;
+    if (_oMesh_.m_bPositionsEnabled == true)
+    {
+      uOffset += _oMesh_.getVerticesPositions().size() * sizeof(float);
+    }
+    if (_oMesh_.m_bNormalsEnabled == true)
+    {
+      uOffset += _oMesh_.getVerticesNormals().size() * sizeof(float);
+    }
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)uOffset);
+    _oMesh_.m_bUVsEnabled = true;
+  }
+
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void OpenGLImplementation::disableVertexAttributesPointers(Mesh& _oMesh_, const Program& _oProgram)
+{
+  glBindBuffer(GL_ARRAY_BUFFER, _oMesh_.m_uInternalId);
+
+  if (_oMesh_.m_bPositionsEnabled == true)
+  {
+    glDisableVertexAttribArray(0);
+    _oMesh_.m_bPositionsEnabled = false;
+  }
+  if (_oMesh_.m_bNormalsEnabled == true)
+  {
+    glDisableVertexAttribArray(1);
+    _oMesh_.m_bNormalsEnabled = false;
+  }
+  if (_oMesh_.m_bUVsEnabled == true)
+  {
+    glDisableVertexAttribArray(2);
+    _oMesh_.m_bUVsEnabled = false;
+  }
+
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+//
+
+// [ RENDER ]
+void OpenGLImplementation::draw(const Mesh& _oMesh)
+{
+  glBindBuffer(GL_ARRAY_BUFFER, _oMesh.m_uInternalId);
+  glDrawElements(GL_TRIANGLES, _oMesh.getVerticesIndices().size(), GL_UNSIGNED_INT, (void*)_oMesh.getVerticesIndices().data());
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+// [ \RENDER ]
