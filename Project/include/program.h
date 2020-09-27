@@ -30,7 +30,7 @@ private:
   std::vector<std::string> m_vUniformsNames;
   std::vector<uint32_t> m_vUniformsLocations;
   std::vector<std::weak_ptr<Shader>> m_vShaders;
-  int32_t m_uInternalId = -1;
+  int32_t m_iInternalId = -1;
   uint32_t m_uUniformsCount = 0;
   bool m_bReady = false;
   bool m_bLinked = false;

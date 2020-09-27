@@ -29,7 +29,7 @@ private:
   std::vector<float> m_vctVerticesUVs;
   std::vector<uint32_t> m_vctVerticesIndices;
   std::string m_sPath;
-  uint32_t m_uInternalId = 0;
+  int32_t m_iInternalId = 0;
   bool m_bReady = false;
   bool m_bPositionsEnabled = false;
   bool m_bNormalsEnabled = false;

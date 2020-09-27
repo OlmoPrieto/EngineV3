@@ -15,6 +15,8 @@ public:
   Shader(EType _eType, const std::string& _sSource);
   ~Shader();
 
+  EType getType() const { return m_eType; }
+  int32_t getInternalId() const { return m_iInternalId; }
   bool getIsReady() const { return m_bReady; }
   
   // TODO: make a method to instant compile the shader
@@ -26,7 +28,7 @@ private:
 
   std::string m_sCode;
   EType m_eType = EType::Invalid;
-  int32_t m_uInternalId = -1;
+  int32_t m_iInternalId = -1;
   bool m_bReady = false;
 };
 

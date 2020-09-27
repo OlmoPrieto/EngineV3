@@ -7,6 +7,8 @@
 
 class OpenGLImplementation {
 private:
+  friend class GPUCommand;
+  friend class CommandPrepareMaterial;
 
   OpenGLImplementation();
   ~OpenGLImplementation();

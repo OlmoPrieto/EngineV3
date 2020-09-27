@@ -1,5 +1,8 @@
-#ifndef __GPU_COMMAND_H__
-#define __GPU_COMMAND_H__
+#pragma once
+
+#include "opengl_implementation.h"
+
+class OpenGLImplementation;
 
 class GPUCommand
 {
@@ -8,6 +11,7 @@ public:
   virtual ~GPUCommand() = default;
 
   virtual void execute() = 0;
-};
 
-#endif // __GPU_COMMAND_H__
+protected:
+  static OpenGLImplementation sm_oOpenGL;
+};
