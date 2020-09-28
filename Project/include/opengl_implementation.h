@@ -9,6 +9,8 @@ class OpenGLImplementation {
 private:
   friend class GPUCommand;
   friend class CommandPrepareMaterial;
+  friend class CommandSetMaterial;
+  friend class CommandDraw;
 
   OpenGLImplementation();
   ~OpenGLImplementation();
@@ -24,6 +26,8 @@ private:
   void getUniformsCount(Program& oProgram_);
   void getUniformsNames(Program& _oProgram_);
   int32_t getUniformLocation(const Program& _oProgram, const std::string& _sUniformName);
+  void setReady(Program& _oProgram_);
+  void useProgram(const Program& _oProgram);
 
   // Buffers
   void setData(Mesh& _oMesh_);

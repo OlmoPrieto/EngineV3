@@ -13,8 +13,10 @@ public:
   Program();
   ~Program();
 
+  int32_t getInternalId() const { return m_iInternalId; }
   bool getIsReady() const { return m_bReady; }
   bool getIsLinked() const { return m_bLinked; }
+
   void attachShader(Shader* pShader);
 
 private:

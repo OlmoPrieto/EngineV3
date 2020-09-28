@@ -21,7 +21,7 @@ public:
   std::string getName() const { return m_sName; }
   const std::vector<Shader>& getShaders() const { return m_vctShaders; }
   std::vector<Shader>& getShaders() { return m_vctShaders; }
-  const Program& getProgram() const { return m_oProgram; }
+  Program& getProgram() { return m_oProgram; }
 
 private:
   friend class MaterialInstance;
@@ -50,12 +50,14 @@ public:
   ~MaterialInstance();
 
   const std::shared_ptr<Material>& getReferenceMaterial() const { return m_spMaterial; }
+  bool checkReady();
 
   // void setAttributeValue(name, value);
   // any getAttributeValue(name);
 
 private:
   std::shared_ptr<Material> m_spMaterial;
+  bool m_bReady = false;  // Will be true when the Shaders and the Programs are ready
   // std::vector<attributes the material has> m_vctAttributes;
   /* possible appereance of attributes:
   {

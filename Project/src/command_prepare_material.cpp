@@ -13,17 +13,48 @@ CommandPrepareMaterial::~CommandPrepareMaterial()
 
 void CommandPrepareMaterial::execute()
 {
-  const std::shared_ptr<Material>& spMaterial = m_spMaterial->getReferenceMaterial();
-  std::vector<Shader>& vctShaders = spMaterial->getShaders();
-  for (Shader& oShader : vctShaders)
+  // TODO: when everything is working, put an if (m_spMaterial->isReady() == false)
+  // anything that modifies a Material (changing a Shader, Program...) should set
+  // everything to not ready
+
+  if (m_spMaterial->checkReady() == false)
   {
-    if (oShader.getInternalId() < 0)
+    const std::shared_ptr<Material>& spMaterial = m_spMaterial->getReferenceMaterial();
+  
+    Program& oProgram = spMaterial->getProgram();
+    if (oProgram.getInternalId() < 0)
     {
-      sm_oOpenGL.createShader(oShader, oShader.getType());
+      sm_oOpenGL.createProgram(oProgram);
     }
-    if (oShader.getIsReady() == false)
+  
+    uint32_t uAttachedShaders = 0;
+    std::vector<Shader>& vctShaders = spMaterial->getShaders();
+    for (Shader& oShader : vctShaders)
     {
-      sm_oOpenGL.compileShader(oShader);
+      if (oShader.getInternalId() < 0)
+      {
+        sm_oOpenGL.createShader(oShader, oShader.getType());
+      }
+      if (oShader.getIsReady() == false)
+      {
+        sm_oOpenGL.compileShader(oShader);
+      }
+      if (oProgram.getIsReady() == false && oProgram.getIsLinked() == false)
+      {
+        sm_oOpenGL.attachShader(oShader, oProgram);
+        ++uAttachedShaders;
+      }
     }
+
+    if (uAttachedShaders == vctShaders.size() && oProgram.getIsLinked() == false)
+    {
+      sm_oOpenGL.linkProgram(oProgram);
+
+      // Maybe retrieve uniforms locations here?
+
+      sm_oOpenGL.setReady(oProgram);
+    }
+
+    m_spMaterial->checkReady();
   }
 }

@@ -38,3 +38,20 @@ MaterialInstance::~MaterialInstance()
 {
 
 }
+
+bool MaterialInstance::checkReady()
+{
+  bool bReady = true;
+  for (const Shader& oShader : m_spMaterial->m_vctShaders)
+  {
+    if (oShader.getIsReady() == false)
+    {
+      bReady = false;
+      break;
+    }
+  }
+  bReady |= m_spMaterial->m_oProgram.getIsReady();
+  m_bReady = bReady;
+
+  return m_bReady;
+}

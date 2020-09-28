@@ -113,6 +113,16 @@ void OpenGLImplementation::getUniformsNames(Program& _oProgram_) {
 int32_t OpenGLImplementation::getUniformLocation(const Program& _oProgram, const std::string& _sUniformName) {
   return glGetUniformLocation(_oProgram.m_iInternalId, _sUniformName.c_str());
 }
+
+void OpenGLImplementation::setReady(Program& _oProgram_)
+{
+  _oProgram_.m_bReady = true;
+}
+
+void OpenGLImplementation::useProgram(const Program& _oProgram)
+{
+  glUseProgram(_oProgram.getInternalId());
+}
 // [ \PROGRAMS ]
 
 // [ BUFFERS ]
