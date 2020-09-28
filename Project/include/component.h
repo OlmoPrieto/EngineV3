@@ -1,10 +1,14 @@
-#ifndef __COMPONENT_H__
-#define __COMPONENT_H__
+#pragma once
+
+#include <string>
 
 class Component {
 public:
   Component();
   ~Component();
-};
 
-#endif  // __COMPONENT_H__
+  std::string getName() const { return m_sName; }
+
+private:
+  std::string m_sName;
+};

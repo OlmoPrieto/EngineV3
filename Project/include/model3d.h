@@ -14,6 +14,8 @@ public:
   static std::shared_ptr<Model3D> CreateQuad();
   static std::shared_ptr<Model3D> CreateMesh(const std::string& _sPath);
 
+  std::vector<Mesh>& getMeshes() { return m_vctMeshes; }
+
 private:
   Model3D();
   Model3D(const std::string& _sPath);

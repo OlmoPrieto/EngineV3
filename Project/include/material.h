@@ -18,6 +18,9 @@ public:
   Material(const std::string& _sName, const std::string& _sMaterialDefinitionPath);
   ~Material();
 
+  // TODO: placeholder
+  static MaterialInstance CreateSpriteMaterial();
+
   std::string getName() const { return m_sName; }
   const std::vector<Shader>& getShaders() const { return m_vctShaders; }
   std::vector<Shader>& getShaders() { return m_vctShaders; }

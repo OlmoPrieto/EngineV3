@@ -1,5 +1,7 @@
 #include "material.h"
 
+#include <cassert>
+
 #include "shader.h"
 
 // MATERIAL
@@ -24,6 +26,16 @@ Material::Material(const std::string& _sName, const std::string& _sMaterialDefin
 Material::~Material() 
 {
 
+}
+
+MaterialInstance Material::CreateSpriteMaterial()
+{
+  Material oMaterial;
+  oMaterial.m_sName = "Sprite";
+  assert(false && "Need to create shaders and program");
+
+  MaterialInstance oMaterialInstance(std::make_shared<Material>(oMaterial));
+  return oMaterialInstance;
 }
 
 
