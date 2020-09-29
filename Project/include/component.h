@@ -2,13 +2,22 @@
 
 #include <string>
 
+class Node;
+
 class Component {
 public:
-  Component();
-  ~Component();
+  enum class EType
+  {
+    Transform = 0,
+    Render
+  };
 
-  std::string getName() const { return m_sName; }
+  Component(Node* _pOwner_);
+  virtual ~Component();
 
-private:
-  std::string m_sName;
+  static std::string& getName() { return sm_sName; }
+
+protected:
+  static std::string sm_sName;
+  Node* m_pOwner = nullptr;
 };

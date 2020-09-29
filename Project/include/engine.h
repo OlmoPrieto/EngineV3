@@ -1,13 +1,12 @@
-#ifndef __ENGINE_H__
-#define __ENGINE_H__
+#pragma once
 
 #include "scene.h"
 #include "component.h"
 
-class Engine {
+class Engine 
+{
 public:
   static Engine* Instance();
-  Component* CreateComponent();
 
 private:
   Engine();
@@ -15,5 +14,3 @@ private:
 
   Scene m_oScene;
 };
-
-#endif  // __ENGINE_H__

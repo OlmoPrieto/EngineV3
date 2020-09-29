@@ -19,5 +19,4 @@ public:
 private:
   std::shared_ptr<Model3D> m_oModel;
   MaterialInstance m_oMaterial;
-  Node* m_pOwner = nullptr;
 };
