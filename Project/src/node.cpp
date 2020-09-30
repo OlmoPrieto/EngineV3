@@ -10,11 +10,11 @@ Node::~Node() {
 
 Component* Node::getComponent(const std::string& _sName)
 {
-  for (std::unique_ptr<Component>& pComponent : m_vctComponents)
+  for (std::unique_ptr<Component*>& pComponent : m_vctComponents)
   {
-    if (pComponent->getName() == _sName)
+    if ((*pComponent)->getName() == _sName)
     {
-      return pComponent.get();
+      return *pComponent.get();
     }
   }
 

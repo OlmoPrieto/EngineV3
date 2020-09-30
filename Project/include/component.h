@@ -15,9 +15,8 @@ public:
   Component(Node* _pOwner_);
   virtual ~Component();
 
-  static std::string& getName() { return sm_sName; }
+  virtual const std::string& getName() const = 0;
 
 protected:
-  static std::string sm_sName;
   Node* m_pOwner = nullptr;
 };
