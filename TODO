@@ -2,6 +2,8 @@
   - Calculate matrices every frame.
   - Dirty system.
 
+- Textures.
+
 - Materials' attributes
   - Support for every kind of data type (do first something like float, matrices, textures, etc).
 

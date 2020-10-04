@@ -125,6 +125,103 @@ void OpenGLImplementation::useProgram(const Program& _oProgram)
 }
 // [ \PROGRAMS ]
 
+// [ TEXTURES ]
+void OpenGLImplementation::uploadTexture(Texture& _oTexture_)
+{
+  uint32_t uId = 0;
+  glGenTextures(1, &uId);
+  assert(uId != GL_INVALID_VALUE && "Failed to create 1 texture");
+  _oTexture_.m_iInternalId = (int32_t)uId;
+  
+  // TODO: switch for texture type
+  assert(_oTexture_.m_eType == Texture::Type::Texture2D);
+  glBindTexture(GL_TEXTURE_2D, uId);
+
+  // TODO: switch for wraps
+  assert(_oTexture_.m_eWrapS == Texture::Wrap::Repeat);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  assert(_oTexture_.m_eWrapT == Texture::Wrap::Repeat);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+  // TODO: switch for filters
+  assert(_oTexture_.m_eMinFilter == Texture::Filter::Linear);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  assert(_oTexture_.m_eMagFilter == Texture::Filter::Linear);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+  // TODO: *
+  GLenum eInternalFormat = GL_INVALID_ENUM;
+  GLenum eFormat = GL_INVALID_ENUM;
+  GLenum ePixelType = GL_INVALID_ENUM;
+  switch (_oTexture_.getFormat())
+  {
+    case Texture::Format::RGB:
+    {
+      eInternalFormat = GL_RGB;
+      eFormat = GL_RGB;
+      ePixelType = GL_UNSIGNED_BYTE;
+      
+      break;
+    }
+    case Texture::Format::RGBA:
+    {
+      eInternalFormat = GL_RGBA;
+      eFormat = GL_RGBA;
+      ePixelType = GL_UNSIGNED_BYTE;
+
+      break;
+    }
+    case Texture::Format::Depth:
+    {
+      eInternalFormat = GL_DEPTH_COMPONENT;
+      eFormat = GL_DEPTH_COMPONENT;
+      ePixelType = GL_FLOAT;
+
+      break;
+    }
+    default:
+    {
+      assert(false && "Texture format not suported by OpenGL backend");
+      break;
+    }
+  }
+
+  glTexImage2D(GL_TEXTURE_2D, 0, eInternalFormat, _oTexture_.getWidth(), _oTexture_.getHeight(),
+    0, eFormat, ePixelType, _oTexture_.getData());
+
+  if (_oTexture_.getGenerateMipMaps())
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+  _oTexture_.m_bReady = true;
+}
+
+void OpenGLImplementation::setActive(const Texture& _oTexture)
+{
+  int32_t iId = _oTexture.getInternalId();
+  assert((iId > -1 && _oTexture.getIsReady() == true) && "Invalid texture");
+
+  glActiveTexture(_oTexture.getTextureUnit());
+  switch (_oTexture.getType())
+  {
+    case Texture::Type::Texture2D:
+    {
+      glBindTexture(GL_TEXTURE_2D, (uint32_t)iId);
+      break;
+    }
+    case Texture::Type::Cubemap:
+    {
+      glBindTexture(GL_TEXTURE_CUBE_MAP, (uint32_t)iId);
+      break;
+    }
+    default:
+    {
+      assert(false && "Texture format not yet supported");
+      break;
+    }
+  }
+}
+// [ \TEXTURES ]
+
 // [ BUFFERS ]
 void OpenGLImplementation::setData(Mesh& _oMesh_)
 {

@@ -4,6 +4,7 @@
 #include "mesh.h"
 #include "program.h"
 #include "shader.h"
+#include "texture.h"
 
 class OpenGLImplementation {
 private:
@@ -28,6 +29,10 @@ private:
   int32_t getUniformLocation(const Program& _oProgram, const std::string& _sUniformName);
   void setReady(Program& _oProgram_);
   void useProgram(const Program& _oProgram);
+
+  // Textures
+  void uploadTexture(Texture& _oTexture_);
+  void setActive(const Texture& _oTexture);
 
   // Buffers
   void setData(Mesh& _oMesh_);
