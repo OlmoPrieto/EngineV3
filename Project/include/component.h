@@ -18,5 +18,7 @@ public:
   virtual const std::string& getName() const = 0;
 
 protected:
+  virtual void addComponent() = 0;
+
   Node* m_pOwner = nullptr;
 };

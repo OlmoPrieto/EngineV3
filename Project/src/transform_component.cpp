@@ -7,6 +7,8 @@ std::string TransformComponent::sm_sName = "TRANSFORM";
 TransformComponent::TransformComponent(Node* _pOwner_)
   : Component(_pOwner_)
 {
+  addComponent();
+
   m_vec3Scale.set(1.0f, 1.0f, 1.0f);
 }
 
@@ -15,11 +17,20 @@ TransformComponent::~TransformComponent()
 
 }
 
-Mat4 TransformComponent::getWorldTransform()
+void TransformComponent::addComponent()
 {
   if (m_pOwner)
+    m_pOwner->addComponent<TransformComponent>(std::make_unique<TransformComponent>(*this));
+}
+
+Mat4 TransformComponent::getWorldTransform()
+{
+  if (m_bDirty)
+    m_mat4LocalTransform.setPosition(m_vec3Position);
+
+  if (m_pOwner)
   {
-    TransformComponent* pParentTransformComponent = (TransformComponent*)m_pOwner->getComponent("TRANSFORM");
+    TransformComponent* pParentTransformComponent = m_pOwner->getComponent<TransformComponent>("TRANSFORM");
     if (pParentTransformComponent)
     {
       Mat4 mat4WorldTransform = pParentTransformComponent->getWorldTransform();
@@ -43,11 +54,9 @@ void TransformComponent::setChildrenDirtyState(bool _bState)
     std::vector<std::unique_ptr<Node>>& vctChildren = m_pOwner->getChildren();
     for (std::unique_ptr<Node>& pChild : vctChildren)
     {
-      TransformComponent* pTransformComponent = (TransformComponent*)pChild->getComponent("TRANSFORM");
+      TransformComponent* pTransformComponent = pChild->getComponent<TransformComponent>("TRANSFORM");
       if (pTransformComponent)
-      {
         pTransformComponent->m_bDirty = _bState;
-      }
     }
   }
 }

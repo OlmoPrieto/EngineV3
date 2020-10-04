@@ -259,6 +259,17 @@ struct Mat4
     *this = *this * other;
   }
 
+  void setPosition(float _fX, float _fY, float _fZ)
+  {
+    matrix[3] = _fX;
+    matrix[7] = _fY;
+    matrix[11] = _fZ;
+  }
+
+  void setPosition(const Vec3& _vec3Position)
+  {
+    setPosition(_vec3Position.x, _vec3Position.y, _vec3Position.z);
+  }
 };
 // ========================================================
 

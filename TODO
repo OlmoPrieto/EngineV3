@@ -1,11 +1,13 @@
-- Refactor sprite's texture's stuff:
-	- What needs to be done is specified in sprite.cpp
-- Think about the need of a Renderer.
-	- Could be good to have a class that manages everything related
-		to the GPU, and if in a future some graphic effects are
-		to be implemented, this class could handle them.
-		Also can be beneficial when implementing GUI stuff.
-  - Implement shaders' stuff
-- Implement Text. Let the Renderer handle it?
-- Implement a scene system.
-- Implement GUI elements like buttons.
+- Node's transform's update.
+  - Calculate matrices every frame.
+  - Dirty system.
+
+- Materials' attributes
+  - Support for every kind of data type (do first something like float, matrices, textures, etc).
+
+- Read materials from disk
+  - In the future, have an IO manager. Even if making a simple thing first, use C++ filesystem.
+
+- Display list generation.
+
+- Add Dear ImGui.

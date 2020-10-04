@@ -9,6 +9,7 @@ public:
   TransformComponent(Node* _pOwner_);
   ~TransformComponent();
 
+  /* Component */
   const std::string& getName() const override { return sm_sName; };
 
   Mat4 getWorldTransform();
@@ -16,6 +17,8 @@ public:
 
 private:
   void setChildrenDirtyState(bool _bState);
+  /* Component */
+  void addComponent() override;
 
   Mat4 m_mat4LocalTransform;
   Vec3 m_vec3Position;
