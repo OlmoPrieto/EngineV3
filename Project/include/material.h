@@ -1,5 +1,4 @@
-#ifndef __MATERIAL_H__
-#define __MATERIAL_H__
+#pragma once
 
 #include <memory>
 #include <string>
@@ -70,5 +69,3 @@ private:
   }
   */
 };
-
-#endif  // __MATERIAL_H__
