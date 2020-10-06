@@ -32,7 +32,22 @@ MaterialInstance Material::CreateSpriteMaterial()
 {
   Material oMaterial;
   oMaterial.m_sName = "Sprite";
-  assert(false && "Need to create shaders and program");
+  
+  std::string sVertexSource = 
+  ""
+  ;
+
+  std::string sFragmentSource =
+  ""
+  ;
+
+  oMaterial.m_vctShaders.emplace_back(Shader::EType::Vertex, sVertexSource);
+  oMaterial.m_vctShaders.emplace_back(Shader::EType::Fragment, sFragmentSource);
+
+  oMaterial.m_oProgram.attachShader(&oMaterial.m_vctShaders[0]);
+  oMaterial.m_oProgram.attachShader(&oMaterial.m_vctShaders[1]);
+
+  // TODO: add Attributes
 
   MaterialInstance oMaterialInstance(std::make_shared<Material>(oMaterial));
   return oMaterialInstance;

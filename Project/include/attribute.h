@@ -2,6 +2,9 @@
 
 #include <string>
 
+#include "maths.h"
+#include "texture.h"
+
 //
 enum class ValueType
 {
@@ -48,20 +51,43 @@ class Attribute
 {
 public:
   Attribute(ValueType _eType, const std::string& _sName);
-  virtual ~Attribute();
+  ~Attribute();
 
   virtual const std::string& getName() const { return m_sName; }
   ValueType getType() const { return m_eType; }
   bool getIsReady() const { return m_bDirty; }
 
   template <class T>
-  void setValue(T&& _oT) {}
+  void setValue(const T& _oT) {}
 
   template <>
-  void setValue<float>(float&& _fValue)
+  void setValue<float>(const float& _fValue)
   {
-
+    *(float*)m_pData = _fValue;
   }
+
+  template <>
+  void setValue<uint32_t>(const uint32_t& _uValue)
+  {
+    *(uint32_t*)m_pData = _uValue;
+  }
+
+  template <>
+  void setValue<Mat4>(const Mat4& _mat4Value)
+  {
+    *(Mat4*)m_pData = _mat4Value;
+  }
+
+  template <>
+  void setValue<std::shared_ptr<Texture>>(const std::shared_ptr<Texture>& _oValue)
+  {
+    *(std::shared_ptr<Texture>*)m_pData = _oValue;
+  }
+
+  //
+
+  template <class T>
+  T& getData() const { return *(T*)m_pData }
 
 protected:
   std::string m_sName;

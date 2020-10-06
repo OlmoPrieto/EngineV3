@@ -2,14 +2,19 @@
   - Calculate matrices every frame.
   - Dirty system.
 
-- Textures.
+- Test Textures.
 
-- Materials' attributes
-  - Support for every kind of data type (do first something like float, matrices, textures, etc).
+- Sprite Material shaders.
+
+- Setup Sprite Material test with new Attributes.
+
+- Scene traversal.
+
+- Orthographic camera setup.
+
+- Display list generation.
 
 - Read materials from disk
   - In the future, have an IO manager. Even if making a simple thing first, use C++ filesystem.
-
-- Display list generation.
 
 - Add Dear ImGui.
