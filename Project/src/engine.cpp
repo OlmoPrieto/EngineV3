@@ -10,8 +10,14 @@ Engine::~Engine()
 
 }
 
-Engine* Engine::Instance() 
+Engine* Engine::GetInstancePtr() 
 {
   static Engine oEngine;
   return &oEngine;
+}
+
+Engine& Engine::GetInstance()
+{
+  static Engine oEngine;
+  return oEngine;
 }

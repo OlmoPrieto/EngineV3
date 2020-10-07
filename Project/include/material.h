@@ -2,8 +2,10 @@
 
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
+#include "attribute.h"
 #include "program.h"
 
 class Shader;
@@ -12,7 +14,6 @@ class MaterialInstance;
 
 class Material {
 public:
-  //typedef std::vector<std::weak_ptr<Shader>> TShaderRefs;
 
   Material(const std::string& _sName, const std::string& _sMaterialDefinitionPath);
   ~Material();
@@ -30,6 +31,7 @@ private:
 
   Material();
 
+  std::unordered_map<std::string, ValueType> m_dctAttributesTable;
   std::vector<Shader> m_vctShaders;
   Program m_oProgram;
   std::string m_sName;
@@ -54,10 +56,16 @@ public:
   const std::shared_ptr<Material>& getReferenceMaterial() const { return m_spMaterial; }
   bool checkReady();
 
+  std::vector<std::unique_ptr<Attribute>>& getAttributes() { return m_vctAttributes; }
+  std::unique_ptr<Attribute>& getAttribute(const std::string& _sName);
+
   // void setAttributeValue(name, value);
   // any getAttributeValue(name);
 
 private:
+  friend class Material;
+
+  std::vector<std::unique_ptr<Attribute>> m_vctAttributes;
   std::shared_ptr<Material> m_spMaterial;
   bool m_bReady = false;  // Will be true when the Shaders and the Programs are ready
   // std::vector<attributes the material has> m_vctAttributes;

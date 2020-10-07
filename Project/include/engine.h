@@ -6,11 +6,10 @@
 class Engine 
 {
 public:
-  static Engine* Instance();
+  static Engine* GetInstancePtr();
+  static Engine& GetInstance();
 
 private:
   Engine();
   ~Engine();
-
-  Scene m_oScene;
 };

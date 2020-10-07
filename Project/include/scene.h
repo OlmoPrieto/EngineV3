@@ -1,5 +1,4 @@
-#ifndef __SCENE_H__
-#define __SCENE_H__
+#pragma once
 
 #include "node.h"
 
@@ -8,8 +7,11 @@ public:
   Scene();
   ~Scene();
 
-private:
-  Node m_root;
-};
+  const Node& getRoot() const { return m_oRoot; }
 
-#endif  // __SCENE_H__
+  void update(float _fFrameTime);
+  void generateDisplayList();
+
+private:
+  Node m_oRoot;
+};
