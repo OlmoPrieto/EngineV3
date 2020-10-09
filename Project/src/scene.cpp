@@ -23,24 +23,28 @@ void Scene::update(float _fFrameTime)
 
 namespace
 {
-  void traverseScene(Node* _pNode)
+  void traverseScene(Node* _pNode, std::vector<std::unique_ptr<GPUCommand>>& vctDisplayList_)
   {
-    
-
-    for (std::unique_ptr<Node>& pNode : _pNode->getChildren())
-    {
-      traverseScene(pNode.get());
-    }
-
     if (_pNode == nullptr)
     {
       return;
+    }
+
+    RenderComponent* pRenderComponent = _pNode->getComponent<RenderComponent>("RENDER");
+    if (pRenderComponent)
+    {
+      pRenderComponent->generateDisplayListCommands(vctDisplayList_);
+    }
+
+    for (std::unique_ptr<Node>& pNode : _pNode->getChildren())
+    {
+      traverseScene(pNode.get(), vctDisplayList_);
     }
   }
 }
 
 void Scene::generateDisplayList()
 {
-  std::vector<GPUCommand> vctDisplayList;
-
+  std::vector<std::unique_ptr<GPUCommand>> vctDisplayList;
+  traverseScene(&m_oRoot, vctDisplayList);
 }

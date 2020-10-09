@@ -28,7 +28,7 @@ Material::~Material()
 
 }
 
-MaterialInstance Material::CreateSpriteMaterial()
+std::shared_ptr<MaterialInstance> Material::CreateSpriteMaterial()
 {
   Material oMaterial;
   oMaterial.m_sName = "Sprite";
@@ -66,7 +66,7 @@ MaterialInstance Material::CreateSpriteMaterial()
 
   //
 
-  MaterialInstance oMaterialInstance(std::make_shared<Material>(oMaterial));
+  std::shared_ptr<MaterialInstance> oMaterialInstance = std::make_shared<MaterialInstance>(std::make_shared<Material>(oMaterial));
 
   /*std::unique_ptr<Attribute> oMVP = std::make_unique<Attribute>(ValueType::Mat4, "MVP");
   oMaterialInstance.m_vctAttributes.push_back(oMVP);*/
@@ -76,12 +76,12 @@ MaterialInstance Material::CreateSpriteMaterial()
   {
     std::unique_ptr<Attribute> oMVP = std::make_unique<Attribute>(itAttribute->second, itAttribute->first);
     //oMaterialInstance.m_vctAttributes.push_back(std::move(std::make_unique<Attribute>(itAttribute->second, itAttribute->first)));
-    oMaterialInstance.m_vctAttributes.push_back(std::move(oMVP));
+    oMaterialInstance->m_vctAttributes.push_back(std::move(oMVP));
 
     ++itAttribute;
   }
 
-  return oMaterialInstance;
+  return std::move(oMaterialInstance);
 }
 
 

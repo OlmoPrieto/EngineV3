@@ -44,7 +44,7 @@ std::shared_ptr<Model3D> Model3D::CreateQuad()
   });
 
   std::shared_ptr<Model3D> spModel(new Model3D());
-  spModel->m_vctMeshes.emplace_back(vctPositions, vctNormals, vctUVs, vctIndices);
+  spModel->m_vctMeshes.emplace_back(std::make_shared<Mesh>(vctPositions, vctNormals, vctUVs, vctIndices));
 
   return spModel;
 }

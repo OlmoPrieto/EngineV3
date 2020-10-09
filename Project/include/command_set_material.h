@@ -12,8 +12,8 @@ public:
   CommandSetMaterial(std::shared_ptr<MaterialInstance> _spMaterial);
   ~CommandSetMaterial();
 
+private:
   void execute() override;
 
-private:
   std::shared_ptr<MaterialInstance> m_spMaterial;
 };
