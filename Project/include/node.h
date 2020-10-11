@@ -26,10 +26,19 @@ public:
   }
 
   template <class T>
-  void addComponent(std::unique_ptr<T>&& _pComponent) { m_vctComponents.push_back(std::move(_pComponent)); }
-  void addChild(std::unique_ptr<Node>&& _pChild) { m_vctChildren.push_back(std::move(_pChild)); }
+  void addComponent(std::unique_ptr<T>&& _pComponent) 
+  {
+    _pComponent->setOwner(this);
+    m_vctComponents.push_back(std::move(_pComponent)); 
+  }
+  void addChild(std::unique_ptr<Node>&& _pChild) 
+  {
+    _pChild->m_pParent = this;
+    m_vctChildren.push_back(std::move(_pChild)); 
+  }
 
   std::vector<std::unique_ptr<Node>>& getChildren() { return m_vctChildren; }
+  Node* getParent() const { return m_pParent; }
 
 private:
   friend class Scene;
@@ -37,4 +46,5 @@ private:
   std::vector<std::unique_ptr<Node>> m_vctChildren;
   std::vector<std::unique_ptr<Component>> m_vctComponents;
   std::string m_sName;
+  Node* m_pParent = nullptr;
 };

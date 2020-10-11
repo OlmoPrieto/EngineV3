@@ -14,6 +14,7 @@ private:
   friend class CommandSetMaterial;
   friend class CommandDraw;
   friend class CommandClear;
+  friend class CommandPrepareMesh;
 
   OpenGLImplementation();
   ~OpenGLImplementation();
@@ -49,8 +50,8 @@ private:
   void setData(Mesh& _oMesh_);
   
   //
-  void enableVertexAttributesPointers(Mesh& _oMesh_, const Program& _oProgram);
-  void disableVertexAttributesPointers(Mesh& _oMesh_, const Program& _oProgram);
+  void enableVertexAttributesPointers(Mesh& _oMesh_);
+  void disableVertexAttributesPointers(Mesh& _oMesh_);
 
   // Render
   void draw(const Mesh& _oMesh);

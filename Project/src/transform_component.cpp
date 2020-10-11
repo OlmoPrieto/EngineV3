@@ -4,12 +4,10 @@
 
 std::string TransformComponent::sm_sName = "TRANSFORM";
 
-TransformComponent::TransformComponent(Node* _pOwner_)
-  : Component(_pOwner_)
+TransformComponent::TransformComponent()
 {
-  addComponent();
-
-  m_vec3Scale.set(1.0f, 1.0f, 1.0f);
+  setScale(1.0f, 1.0f, 1.0f);
+  setPosition(0.0f, 0.0f, -5.0f);
 }
 
 TransformComponent::~TransformComponent()
@@ -17,20 +15,20 @@ TransformComponent::~TransformComponent()
 
 }
 
-void TransformComponent::addComponent()
-{
-  if (m_pOwner)
-    m_pOwner->addComponent<TransformComponent>(std::make_unique<TransformComponent>(*this));
-}
-
 Mat4 TransformComponent::getWorldTransform()
 {
   if (m_bDirty)
-    m_mat4LocalTransform.setPosition(m_vec3Position);
-
-  if (m_pOwner)
   {
-    TransformComponent* pParentTransformComponent = m_pOwner->getComponent<TransformComponent>("TRANSFORM");
+    m_mat4LocalTransform.setPosition(m_vec3Position);
+    m_mat4LocalTransform.setScale(m_vec3Scale);
+
+    m_bDirty = false;
+  }
+
+  Node* pParent = m_pOwner->getParent();
+  if (pParent)
+  {
+    TransformComponent* pParentTransformComponent = pParent->getComponent<TransformComponent>("TRANSFORM");
     if (pParentTransformComponent)
     {
       Mat4 mat4WorldTransform = pParentTransformComponent->getWorldTransform();
@@ -45,6 +43,12 @@ Mat4 TransformComponent::getWorldTransform()
 void TransformComponent::setPosition(float _fX, float _fY, float _fZ)
 {
   m_vec3Position.set(_fX, _fY, _fZ);
+  m_bDirty = true;
+}
+
+void TransformComponent::setScale(float _fX, float _fY, float _fZ)
+{
+  m_vec3Scale.set(_fX, _fY, _fZ);
   m_bDirty = true;
 }
 

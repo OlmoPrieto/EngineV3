@@ -12,13 +12,12 @@ public:
     Render
   };
 
-  Component(Node* _pOwner_);
   virtual ~Component();
 
   virtual const std::string& getName() const = 0;
 
-protected:
-  virtual void addComponent() = 0;
+  void setOwner(Node* _pNode) { m_pOwner = _pNode; }
 
+protected:
   Node* m_pOwner = nullptr;
 };

@@ -13,7 +13,7 @@ public:
   Node& getRoot() { return m_oRoot; }
 
   void update(float _fFrameTime);
-  std::vector<std::unique_ptr<GPUCommand>>&& generateDisplayList();
+  std::vector<std::unique_ptr<GPUCommand>> generateDisplayList();
 
 private:
   Node m_oRoot;

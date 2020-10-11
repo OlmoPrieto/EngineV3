@@ -403,5 +403,17 @@ struct Mat4
   {
     setPosition(_vec3Position.x, _vec3Position.y, _vec3Position.z);
   }
+
+  void setScale(float _fX, float _fY, float _fZ)
+  {
+    matrix[0] *= _fX;
+    matrix[4] *= _fY;
+    matrix[8] *= _fZ;
+  }
+
+  void setScale(const Vec3& _vec3Scale)
+  {
+    setScale(_vec3Scale.x, _vec3Scale.y, _vec3Scale.z);
+  }
 };
 // ========================================================

@@ -76,10 +76,10 @@ int main()
 
   Scene oScene;
   Node& oRoot = oScene.getRoot();
-  std::unique_ptr<RenderComponent> oRenderComponent = std::make_unique<RenderComponent>(&oRoot);
-  std::unique_ptr<TransformComponent> oTransformComponent = std::make_unique<TransformComponent>(&oRoot);
-  /*oRoot.addComponent(std::move(oRenderComponent));
-  oRoot.addComponent(std::move(oTransformComponent));*/
+  std::unique_ptr<RenderComponent> oRenderComponent = std::make_unique<RenderComponent>();
+  std::unique_ptr<TransformComponent> oTransformComponent = std::make_unique<TransformComponent>();
+  oRoot.addComponent(std::move(oRenderComponent));
+  oRoot.addComponent(std::move(oTransformComponent));
 
   Camera oCamera(Camera::EType::Orthographic, g_uWindowWidth, g_uWindowHeight);
 

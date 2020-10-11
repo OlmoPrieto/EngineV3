@@ -18,7 +18,7 @@ void CommandSetMaterial::execute()
   if (m_spMaterial->checkReady() == true)
   {
     Program& oProgram = spMaterial->getProgram();
-    if (sm_oOpenGL.getProgramInUse() != oProgram.getInternalId())
+    //if (sm_oOpenGL.getProgramInUse() != oProgram.getInternalId())
       sm_oOpenGL.useProgram(oProgram);
 
     for (std::unique_ptr<Attribute>& pAttribute : m_spMaterial->getAttributes())

@@ -12,7 +12,7 @@ class GPUCommand;
 class RenderComponent : public Component
 {
 public:
-  RenderComponent(Node* _pOwner_);
+  RenderComponent();
   ~RenderComponent();
 
   /* Component */
@@ -24,8 +24,6 @@ public:
   void generateDisplayListCommands(std::vector<std::unique_ptr<GPUCommand>>& vctDisplayList_);
 
 private:
-  /* Component */
-  void addComponent() override;
 
   std::shared_ptr<Model3D> m_spModel;
   std::vector<std::shared_ptr<MaterialInstance>> m_vctMaterials;

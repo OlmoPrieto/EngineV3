@@ -40,15 +40,19 @@ void OpenGLImplementation::createShader(Shader& _oShader_, Shader::EType _eType)
   }
 
   _oShader_.m_iInternalId = glCreateShader(eShaderType);
-  glShaderSource(_oShader_.m_iInternalId, 1, (const GLchar* const*)_oShader_.m_sCode.c_str(), nullptr);
+
+  const GLchar* pSource = _oShader_.m_sCode.c_str();
+  int32_t iSourceLength = (int32_t)_oShader_.m_sCode.length();
+  glShaderSource(_oShader_.m_iInternalId, 1, &pSource, &iSourceLength);
 }
 
 void OpenGLImplementation::compileShader(Shader& _oShader_) {
-  assert(_oShader_.m_bReady == true && "OpenGLImplementation::compileShader -> shader not ready");
+  assert(_oShader_.m_iInternalId > -1 && "OpenGLImplementation::compileShader -> shader not created");
   glCompileShader(_oShader_.m_iInternalId);
   GLint bCompilingSuccess = 0;
   glGetShaderiv(_oShader_.m_iInternalId, GL_COMPILE_STATUS, &bCompilingSuccess);
   if (!bCompilingSuccess) {
+    printf("\n");
     printf("Failed to compile shader with id %d of type %d\n", _oShader_.m_iInternalId, _oShader_.m_eType);
     GLint iLogSize = 0;
     glGetShaderiv(_oShader_.m_iInternalId, GL_INFO_LOG_LENGTH, &iLogSize);
@@ -60,6 +64,7 @@ void OpenGLImplementation::compileShader(Shader& _oShader_) {
   }
   else
   {
+    printf("Successfuly compiled shader %d of type %d\n", _oShader_.m_iInternalId, _oShader_.m_eType);
     _oShader_.m_bReady = true;
   }
 }
@@ -398,7 +403,7 @@ void OpenGLImplementation::setData(Mesh& _oMesh_)
 // [ \BUFFERS ]
 
 // 
-void OpenGLImplementation::enableVertexAttributesPointers(Mesh& _oMesh_, const Program& _oProgram)
+void OpenGLImplementation::enableVertexAttributesPointers(Mesh& _oMesh_)
 {
   glBindBuffer(GL_ARRAY_BUFFER, _oMesh_.m_iInternalId);
 
@@ -438,7 +443,7 @@ void OpenGLImplementation::enableVertexAttributesPointers(Mesh& _oMesh_, const P
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void OpenGLImplementation::disableVertexAttributesPointers(Mesh& _oMesh_, const Program& _oProgram)
+void OpenGLImplementation::disableVertexAttributesPointers(Mesh& _oMesh_)
 {
   glBindBuffer(GL_ARRAY_BUFFER, _oMesh_.m_iInternalId);
 
@@ -466,7 +471,9 @@ void OpenGLImplementation::disableVertexAttributesPointers(Mesh& _oMesh_, const 
 void OpenGLImplementation::draw(const Mesh& _oMesh)
 {
   glBindBuffer(GL_ARRAY_BUFFER, _oMesh.m_iInternalId);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _oMesh.m_iInternalId);
   glDrawElements(GL_TRIANGLES, _oMesh.getVerticesIndices().size(), GL_UNSIGNED_INT, (void*)_oMesh.getVerticesIndices().data());
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 // [ \RENDER ]

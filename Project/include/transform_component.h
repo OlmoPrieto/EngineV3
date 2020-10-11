@@ -6,7 +6,7 @@
 class TransformComponent : public Component
 {
 public:
-  TransformComponent(Node* _pOwner_);
+  TransformComponent();
   ~TransformComponent();
 
   /* Component */
@@ -14,11 +14,10 @@ public:
 
   Mat4 getWorldTransform();
   void setPosition(float _fX, float _fY, float _fZ);
+  void setScale(float _fX, float _fY, float _fZ);
 
 private:
   void setChildrenDirtyState(bool _bState);
-  /* Component */
-  void addComponent() override;
 
   Mat4 m_mat4LocalTransform;
   Vec3 m_vec3Position;

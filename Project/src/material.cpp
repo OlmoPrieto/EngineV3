@@ -28,32 +28,33 @@ Material::~Material()
 
 }
 
-std::shared_ptr<MaterialInstance>&& Material::CreateSpriteMaterial()
+std::shared_ptr<MaterialInstance> Material::CreateSpriteMaterial()
 {
   Material oMaterial;
   oMaterial.m_sName = "Sprite";
   
   std::string sVertexSource = 
-    "#version 330"
-    "layout (location = 0) position;"
-    "layout (location = 1) normal;"
-    "layout (location = 2) uv;"
-    "uniform mat4 MVP;"
-    "out vec2 vertex_uv;"
-    "int main()"
-    "{"
-    "  gl_Position = MVP* vec4(position, 1.0);"
-    "  vertex_uv = vec2(uv.x, uv.y);"
-    "}"
+    "#version 330\n"
+    "layout (location = 0) in vec3 position;\n"
+    "layout (location = 1) in vec3 normal;\n"
+    "layout (location = 2) in vec3 uv;\n"
+    "uniform mat4 MVP;\n"
+    "out vec2 vertex_uv;\n"
+    "void main()\n"
+    "{\n"
+    "  gl_Position = MVP * vec4(position, 1.0);\n"
+    "  vertex_uv = vec2(uv.x, uv.y);\n"
+    "}\n"
   ;
 
   std::string sFragmentSource =
-    "#version 330"
-    "out vec2 vertex_uv;"
-    "int main()"
-    "{"
-    "   gl_FragColor = vec4(vertex_uv.x, vertex_uv.y, 0.0, 1.0);"
-    "}"
+    "#version 330\n"
+    "in vec2 vertex_uv;\n"
+    "void main()\n"
+    "{\n"
+    //"  gl_FragColor = vec4(vertex_uv.x, vertex_uv.y, 0.0, 1.0);\n"
+    "  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n"
+    "}\n"
   ;
 
   oMaterial.m_vctShaders.emplace_back(Shader::EType::Vertex, sVertexSource);
