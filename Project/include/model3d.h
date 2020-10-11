@@ -11,7 +11,7 @@ class Model3D
 public:
   ~Model3D();
 
-  static std::shared_ptr<Model3D> CreateQuad();
+  static std::shared_ptr<Model3D>&& CreateQuad();
   static std::shared_ptr<Model3D> CreateMesh(const std::string& _sPath);
 
   std::vector<std::shared_ptr<Mesh>>& getMeshes() { return m_vctMeshes; }

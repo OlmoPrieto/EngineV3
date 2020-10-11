@@ -19,7 +19,7 @@ public:
   ~Material();
 
   // TODO: placeholder
-  static std::shared_ptr<MaterialInstance> CreateSpriteMaterial();
+  static std::shared_ptr<MaterialInstance>&& CreateSpriteMaterial();
 
   std::string getName() const { return m_sName; }
   const std::vector<Shader>& getShaders() const { return m_vctShaders; }

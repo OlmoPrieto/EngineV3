@@ -28,7 +28,7 @@ Material::~Material()
 
 }
 
-std::shared_ptr<MaterialInstance> Material::CreateSpriteMaterial()
+std::shared_ptr<MaterialInstance>&& Material::CreateSpriteMaterial()
 {
   Material oMaterial;
   oMaterial.m_sName = "Sprite";

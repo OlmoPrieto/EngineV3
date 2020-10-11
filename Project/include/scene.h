@@ -10,7 +10,7 @@ public:
   Scene();
   ~Scene();
 
-  const Node& getRoot() const { return m_oRoot; }
+  Node& getRoot() { return m_oRoot; }
 
   void update(float _fFrameTime);
   std::vector<std::unique_ptr<GPUCommand>>&& generateDisplayList();
