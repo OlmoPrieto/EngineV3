@@ -1,10 +1,11 @@
-#ifndef __OPENGL_IMPLEMENTATION_H__
-#define __OPENGL_IMPLEMENTATION_H__
+#pragma once
 
+#include "attribute.h"
 #include "mesh.h"
 #include "program.h"
 #include "shader.h"
 #include "texture.h"
+#include "utils.h"
 
 class OpenGLImplementation {
 private:
@@ -12,6 +13,7 @@ private:
   friend class CommandPrepareMaterial;
   friend class CommandSetMaterial;
   friend class CommandDraw;
+  friend class CommandClear;
 
   OpenGLImplementation();
   ~OpenGLImplementation();
@@ -29,6 +31,15 @@ private:
   int32_t getUniformLocation(const Program& _oProgram, const std::string& _sUniformName);
   void setReady(Program& _oProgram_);
   void useProgram(const Program& _oProgram);
+  
+  void setUniformValue(int32_t _uUniformLocation, ValueType _eValueType, float* _pData);
+  void setUniformValue(int32_t _uUniformLocation, ValueType _eValueType, uint32_t* _pData);
+  void setUniformValue(int32_t _uUniformLocation, ValueType _eValueType, int32_t* _pData);
+
+  int32_t getUniformLocation(const Program& _oProgram, const char* _sName);
+  int32_t getUniformCount(const Program& _oProgram);
+
+  int32_t getProgramInUse();
 
   // Textures
   void uploadTexture(Texture& _oTexture_);
@@ -43,6 +54,7 @@ private:
 
   // Render
   void draw(const Mesh& _oMesh);
-};
 
-#endif  // __OPENGL_IMPLEMENTATION_H__
+  //
+  void clearColor(const Color& _oColor);
+};

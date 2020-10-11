@@ -87,7 +87,7 @@ public:
   //
 
   template <class T>
-  T& getData() const { return *(T*)m_pData }
+  T& getData() const { return *(T*)m_pData; }
 
 protected:
   std::string m_sName;

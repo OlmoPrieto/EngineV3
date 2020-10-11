@@ -34,7 +34,8 @@ Mat4 TransformComponent::getWorldTransform()
     if (pParentTransformComponent)
     {
       Mat4 mat4WorldTransform = pParentTransformComponent->getWorldTransform();
-      return mat4WorldTransform * m_mat4LocalTransform;
+      mat4WorldTransform.inverse();
+      return m_mat4LocalTransform * mat4WorldTransform;
     }
   }
 

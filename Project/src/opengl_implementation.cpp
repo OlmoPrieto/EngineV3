@@ -123,6 +123,134 @@ void OpenGLImplementation::useProgram(const Program& _oProgram)
 {
   glUseProgram(_oProgram.getInternalId());
 }
+
+void OpenGLImplementation::setUniformValue(int32_t _uUniformLocation, ValueType _eValueType, float* _pData)
+{
+  switch (_eValueType)
+  {
+    case ValueType::Float1:
+    {
+      glUniform1fv(_uUniformLocation, 1, _pData);
+      break;
+    }
+    case ValueType::Float2:
+    {
+      glUniform2fv(_uUniformLocation, 1, _pData);
+      break;
+    }
+    case ValueType::Float3:
+    {
+      glUniform3fv(_uUniformLocation, 1, _pData);
+      break;
+    }
+    case ValueType::Float4:
+    {
+      glUniform4fv(_uUniformLocation, 1, _pData);
+      break;
+    }
+
+    case ValueType::Mat2:
+    {
+      glUniformMatrix2fv(_uUniformLocation, 1, false, _pData);
+      break;
+    }
+    case ValueType::Mat3:
+    {
+      glUniformMatrix3fv(_uUniformLocation, 1, false, _pData);
+      break;
+    }
+    case ValueType::Mat4:
+    {
+      glUniformMatrix4fv(_uUniformLocation, 1, false, _pData);
+      break;
+    }
+    default:
+    {
+      break;
+    }
+  }
+}
+void OpenGLImplementation::setUniformValue(int32_t _uUniformLocation, ValueType _eValueType, uint32_t* _pData)
+{
+  switch (_eValueType)
+  {
+    case ValueType::Uint1:
+    {
+      glUniform1uiv(_uUniformLocation, 1, _pData);
+      break;
+    }
+    case ValueType::Uint2:
+    {
+      glUniform2uiv(_uUniformLocation, 1, _pData);
+      break;
+    }
+    case ValueType::Uint3:
+    {
+      glUniform3uiv(_uUniformLocation, 1, _pData);
+      break;
+    }
+    case ValueType::Uint4:
+    {
+      glUniform4uiv(_uUniformLocation, 1, _pData);
+      break;
+    }
+    default:
+    {
+      break;
+    }
+  }
+}
+void OpenGLImplementation::setUniformValue(int32_t _uUniformLocation, ValueType _eValueType, int32_t* _pData)
+{
+  switch (_eValueType)
+  {
+    case ValueType::Texture:
+    case ValueType::Int1:
+    {
+      glUniform1iv(_uUniformLocation, 1, _pData);
+      break;
+    }
+    case ValueType::Int2:
+    {
+      glUniform2iv(_uUniformLocation, 1, _pData);
+      break;
+    }
+    case ValueType::Int3:
+    {
+      glUniform3iv(_uUniformLocation, 1, _pData);
+      break;
+    }
+    case ValueType::Int4:
+    {
+      glUniform4iv(_uUniformLocation, 1, _pData);
+      break;
+    }
+    default:
+    {
+      break;
+    }
+  }
+}
+
+int32_t OpenGLImplementation::getUniformLocation(const Program & _oProgram, const char * _sName)
+{
+  return glGetUniformLocation(_oProgram.getInternalId(), _sName);
+}
+
+int32_t OpenGLImplementation::getUniformCount(const Program & _oProgram)
+{
+  int32_t iCount = -1;
+  glGetProgramiv(_oProgram.getInternalId(), GL_ACTIVE_UNIFORMS, &iCount);
+
+  return iCount;
+}
+
+int32_t OpenGLImplementation::getProgramInUse()
+{
+  int32_t iProgramIndex = -1;
+  glGetIntegeri_v(GL_CURRENT_PROGRAM, 1, &iProgramIndex);
+  return iProgramIndex;
+}
 // [ \PROGRAMS ]
 
 // [ TEXTURES ]
@@ -342,3 +470,10 @@ void OpenGLImplementation::draw(const Mesh& _oMesh)
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 // [ \RENDER ]
+
+// [ CLEAR ]
+void OpenGLImplementation::clearColor(const Color & _oColor)
+{
+  glClearColor(_oColor.r / 255, _oColor.g / 255, _oColor.b / 255, _oColor.a / 255);
+}
+// [ \CLEAR]

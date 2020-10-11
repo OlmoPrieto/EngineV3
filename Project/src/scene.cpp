@@ -1,10 +1,7 @@
 #include "scene.h"
 
-#include <vector>
-
-#include "gpu_command.h"
+#include "command_clear.h"
 #include "render_component.h"
-#include "transform_component.h"
 
 Scene::Scene() 
 {
@@ -43,8 +40,11 @@ namespace
   }
 }
 
-void Scene::generateDisplayList()
+std::vector<std::unique_ptr<GPUCommand>>&& Scene::generateDisplayList()
 {
   std::vector<std::unique_ptr<GPUCommand>> vctDisplayList;
+  vctDisplayList.push_back(std::make_unique<CommandClear>(Color(0, 0, 0, 0)));
   traverseScene(&m_oRoot, vctDisplayList);
+
+  return std::move(vctDisplayList);
 }

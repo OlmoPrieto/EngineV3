@@ -1,5 +1,8 @@
 #pragma once
 
+#include <vector>
+
+#include "gpu_command.h"
 #include "node.h"
 
 class Scene {
@@ -10,7 +13,7 @@ public:
   const Node& getRoot() const { return m_oRoot; }
 
   void update(float _fFrameTime);
-  void generateDisplayList();
+  std::vector<std::unique_ptr<GPUCommand>>&& generateDisplayList();
 
 private:
   Node m_oRoot;

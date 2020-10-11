@@ -83,8 +83,3 @@ void Camera::setProjectionToOrthographic()
   m_mat4ProjectionMatrix.matrix[14] = -(fFar + fNear) / (fFar - fNear);
   m_mat4ProjectionMatrix.matrix[15] = 1.0f;
 }
-
-void Camera::render()
-{
-
-}
