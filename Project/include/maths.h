@@ -213,6 +213,10 @@ struct Mat4
     matrix[5] = 1.0f;
     matrix[10] = 1.0f;
     matrix[15] = 1.0f;
+    /*matrix[3] = 1.0f;
+    matrix[6] = 1.0f;
+    matrix[9] = 1.0f;
+    matrix[12] = 1.0f;*/
   }
 
   void setToZero()

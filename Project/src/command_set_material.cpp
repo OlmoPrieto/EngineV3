@@ -49,8 +49,21 @@ void CommandSetMaterial::execute()
         }
         case ValueType::Mat4:
         {
+          Mat4 temp = pAttribute->getData<Mat4>();
+          float* temp2 = (float*)malloc(sizeof(float) * 16);
+          
+          //memcpy(temp2, temp.matrix, sizeof(float) * 16);
+          for (uint32_t i = 0; i < 16; ++i)
+          {
+            *(temp2 + i * sizeof(float)) = temp.matrix[i];
+            printf("%.10f\n", *(temp2 + i * sizeof(float)));
+          }
+          printf("\n");
+          /*sm_oOpenGL.setUniformValue(sm_oOpenGL.getUniformLocation(oProgram, pAttribute->getName().c_str()),
+            eType, pAttribute->getData<Mat4>().matrix);*/
           sm_oOpenGL.setUniformValue(sm_oOpenGL.getUniformLocation(oProgram, pAttribute->getName().c_str()),
-            eType, pAttribute->getData<Mat4>().matrix);
+            eType, temp2);
+          free(temp2);
 
           break;
         }

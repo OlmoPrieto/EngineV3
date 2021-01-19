@@ -37,6 +37,7 @@ void RenderComponent::generateDisplayListCommands(std::vector<std::unique_ptr<GP
 
     TransformComponent* pTransformComp = m_pOwner->getComponent<TransformComponent>("TRANSFORM");
     assert(pTransformComp);
+    Mat4 temp = pTransformComp->getWorldTransform() * mat4Projection;
     oMVP->setValue<Mat4>(pTransformComp->getWorldTransform() * mat4Projection);
 
     if (m_vctMaterials[i]->checkReady() == false)

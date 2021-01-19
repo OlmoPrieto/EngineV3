@@ -38,9 +38,9 @@ Camera::~Camera()
 
 void Camera::setProjectionToOrthographic()
 {
-  float fRight = 1.0f;
-  float fLeft = -1.0f;
-  float fTop = 1.0f;
+  float fRight  =  1.0f;
+  float fLeft   = -1.0f;
+  float fTop    =  1.0f;
   float fBottom = -1.0f;
 
   float fAspectRatio = m_uRenderWidth / m_uRenderHeight;

@@ -14,10 +14,10 @@ public:
 
   bool getIsReady() const { return m_bReady; }
 
-  const std::vector<float>    getVerticesPositions() const { return m_vctVerticesPositions; }
-  const std::vector<float>    getVerticesNormals() const { return m_vctVerticesNormals; }
-  const std::vector<float>    getVerticesUVs() const { return m_vctVerticesUVs; }
-  const std::vector<uint32_t> getVerticesIndices() const { return m_vctVerticesIndices; }
+  const std::vector<float>&     getVerticesPositions() const { return m_vctVerticesPositions; }
+  const std::vector<float>&     getVerticesNormals() const { return m_vctVerticesNormals; }
+  const std::vector<float>&     getVerticesUVs() const { return m_vctVerticesUVs; }
+  const std::vector<uint32_t>&  getVerticesIndices() const { return m_vctVerticesIndices; }
 
 private:
   friend class OpenGLImplementation;
