@@ -33,7 +33,7 @@ private:
   void setReady(Program& _oProgram_);
   void useProgram(const Program& _oProgram);
   
-  void setUniformValue(int32_t _uUniformLocation, ValueType _eValueType, float* _pData);
+  void setUniformValue(int32_t _uUniformLocation, ValueType _eValueType, const float* _pData);
   void setUniformValue(int32_t _uUniformLocation, ValueType _eValueType, uint32_t* _pData);
   void setUniformValue(int32_t _uUniformLocation, ValueType _eValueType, int32_t* _pData);
 

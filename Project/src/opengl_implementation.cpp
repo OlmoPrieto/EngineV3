@@ -129,39 +129,39 @@ void OpenGLImplementation::useProgram(const Program& _oProgram)
   glUseProgram(_oProgram.getInternalId());
 }
 
-void OpenGLImplementation::setUniformValue(int32_t _uUniformLocation, ValueType _eValueType, float* _pData)
+void OpenGLImplementation::setUniformValue(int32_t _uUniformLocation, ValueType _eValueType, const float* _pData)
 {
   switch (_eValueType)
   {
     case ValueType::Float1:
     {
-      glUniform1fv(_uUniformLocation, 1, _pData);
+      glUniform1fv(_uUniformLocation, 1, (const GLfloat*)_pData);
       break;
     }
     case ValueType::Float2:
     {
-      glUniform2fv(_uUniformLocation, 1, _pData);
+      glUniform2fv(_uUniformLocation, 1, (const GLfloat*)_pData);
       break;
     }
     case ValueType::Float3:
     {
-      glUniform3fv(_uUniformLocation, 1, _pData);
+      glUniform3fv(_uUniformLocation, 1, (const GLfloat*)_pData);
       break;
     }
     case ValueType::Float4:
     {
-      glUniform4fv(_uUniformLocation, 1, _pData);
+      glUniform4fv(_uUniformLocation, 1, (const GLfloat*)_pData);
       break;
     }
 
     case ValueType::Mat2:
     {
-      glUniformMatrix2fv(_uUniformLocation, 1, false, _pData);
+      glUniformMatrix2fv(_uUniformLocation, 1, false, (const GLfloat*)_pData);
       break;
     }
     case ValueType::Mat3:
     {
-      glUniformMatrix3fv(_uUniformLocation, 1, false, _pData);
+      glUniformMatrix3fv(_uUniformLocation, 1, false, (const GLfloat*)_pData);
       break;
     }
     case ValueType::Mat4:
@@ -171,7 +171,7 @@ void OpenGLImplementation::setUniformValue(int32_t _uUniformLocation, ValueType 
         printf("%.10f\n", *(_pData + i * sizeof(float)));
       }
       printf("\n");
-      glUniformMatrix4fv(_uUniformLocation, 1, false, _pData);
+      glUniformMatrix4fv(_uUniformLocation, 1, false, (const GLfloat*)_pData);
       break;
     }
     default:
@@ -410,6 +410,8 @@ void OpenGLImplementation::setData(Mesh& _oMesh_)
 // 
 void OpenGLImplementation::enableVertexAttributesPointers(Mesh& _oMesh_)
 {
+  glEnable(GL_DEPTH_TEST);
+
   glBindBuffer(GL_ARRAY_BUFFER, _oMesh_.m_iInternalId);
 
   if (_oMesh_.getVerticesPositions().size() > 0)
@@ -441,7 +443,7 @@ void OpenGLImplementation::enableVertexAttributesPointers(Mesh& _oMesh_)
     {
       uOffset += _oMesh_.getVerticesNormals().size() * sizeof(float);
     }
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)uOffset);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)uOffset);
     _oMesh_.m_bUVsEnabled = true;
   }
 
@@ -475,12 +477,12 @@ void OpenGLImplementation::disableVertexAttributesPointers(Mesh& _oMesh_)
 // [ RENDER ]
 void OpenGLImplementation::draw(const Mesh& _oMesh)
 {
-  //glBindBuffer(GL_ARRAY_BUFFER, _oMesh.m_iInternalId);
+  glBindBuffer(GL_ARRAY_BUFFER, _oMesh.m_iInternalId);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _oMesh.m_iInternalId);
   /*uint32_t indices[6];
   glGetBufferSubData(GL_ARRAY_BUFFER, ((_oMesh.getVerticesPositions().size() + _oMesh.getVerticesNormals().size() + _oMesh.getVerticesUVs().size()) * sizeof(float)),
   6 * sizeof(uint32_t), indices);*/
-  /*GLenum err = glGetError();
+  GLenum err = glGetError();
   while (err != GL_NO_ERROR)
   {
     if (err == GL_INVALID_OPERATION)
@@ -491,7 +493,7 @@ void OpenGLImplementation::draw(const Mesh& _oMesh)
       printf("Invalid value\n");
 
     err = glGetError();
-  }*/
+  }
   
 
   glDrawElements(GL_TRIANGLES, _oMesh.getVerticesIndices().size(), GL_UNSIGNED_INT, 
@@ -505,7 +507,7 @@ void OpenGLImplementation::draw(const Mesh& _oMesh)
   printf("OFFSET: %d\n", (_oMesh.getVerticesPositions().size() + _oMesh.getVerticesNormals().size() + _oMesh.getVerticesUVs().size()) * sizeof(float));
   printf("OFFSET + indices size: %d\n", (_oMesh.getVerticesPositions().size() + _oMesh.getVerticesNormals().size() + _oMesh.getVerticesUVs().size()) * sizeof(float) + (_oMesh.getVerticesIndices().size() * sizeof(uint32_t)));*/
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-  //glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 // [ \RENDER ]
 

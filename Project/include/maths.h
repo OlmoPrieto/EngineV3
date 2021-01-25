@@ -209,14 +209,10 @@ struct Mat4
   void setIdentity() 
   {
     memset(matrix, 0, sizeof(float) * 16);
-    matrix[0] = 1.0f;
-    matrix[5] = 1.0f;
+    matrix[0]  = 1.0f;
+    matrix[5]  = 1.0f;
     matrix[10] = 1.0f;
     matrix[15] = 1.0f;
-    /*matrix[3] = 1.0f;
-    matrix[6] = 1.0f;
-    matrix[9] = 1.0f;
-    matrix[12] = 1.0f;*/
   }
 
   void setToZero()

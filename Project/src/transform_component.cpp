@@ -6,8 +6,8 @@ std::string TransformComponent::sm_sName = "TRANSFORM";
 
 TransformComponent::TransformComponent()
 {
-  setScale(1.0f, 1.0f, 1.0f);
-  setPosition(0.0f, 0.0f, 0.0f);
+  setScale(10.0f, 10.0f, 100.0f);
+  setPosition(100.0f, 100.0f, 0.0f);
 }
 
 TransformComponent::~TransformComponent()

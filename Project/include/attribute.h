@@ -50,8 +50,8 @@ enum class ValueType
 class Attribute
 {
 public:
-  Attribute(ValueType _eType, const std::string& _sName);
-  ~Attribute();
+  Attribute(ValueType _eType, const std::string& _sName); // Allocs for memory
+  ~Attribute(); // Releases memory
 
   virtual const std::string& getName() const { return m_sName; }
   ValueType getType() const { return m_eType; }
@@ -87,7 +87,7 @@ public:
   //
 
   template <class T>
-  T& getData() const { return *(T*)m_pData; }
+  T* getData() const { return (T*)m_pData; }
 
 protected:
   std::string m_sName;
