@@ -11,6 +11,9 @@ class Scene;
 class Engine 
 {
 public:
+  static uint32_t s_uWindowWidth;
+  static uint32_t s_uWindowHeight;
+
   static Engine* GetInstancePtr();
   static Engine& GetInstance();
 
@@ -22,7 +25,7 @@ public:
   Scene* getCurrentScene() const { return m_pCurrentScene; }
   Camera* getCurrentCamera() const { return m_pCurrentCamera; }
 
-  void getWindowSize(uint32_t& uWidth_, uint32_t& uHeight_) { uWidth_ = m_uWindowWidth; uHeight_ = m_uWindowHeight; }
+  void setWindowSize(uint32_t& uWidth_, uint32_t& uHeight_) { uWidth_ = s_uWindowWidth; uHeight_ = s_uWindowHeight; }
 
 private:
   
@@ -34,6 +37,4 @@ private:
   std::vector<std::unique_ptr<GPUCommand>> m_vctDisplayList;
   Scene* m_pCurrentScene = nullptr;
   Camera* m_pCurrentCamera = nullptr;
-  uint32_t m_uWindowWidth = 720;
-  uint32_t m_uWindowHeight = 480;
 };

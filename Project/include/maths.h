@@ -3,6 +3,7 @@
 #include <cassert>
 #include <cstdint>
 #include <cstring>
+#include <cstdio>
 
 namespace utils 
 {
@@ -384,6 +385,46 @@ struct Mat4
     result.matrix[14] = matrix[12] * other.matrix[2] + matrix[13] * other.matrix[6] + matrix[14] * other.matrix[10] + matrix[15] * other.matrix[14];
     result.matrix[15] = matrix[12] * other.matrix[3] + matrix[13] * other.matrix[7] + matrix[14] * other.matrix[11] + matrix[15] * other.matrix[15];
 
+    /*result.matrix[0] = matrix[0] * other.matrix[0] + matrix[4] * other.matrix[1] + matrix[8] * other.matrix[2] + matrix[12] * other.matrix[3];
+    result.matrix[4] = matrix[0] * other.matrix[4] + matrix[4] * other.matrix[5] + matrix[8] * other.matrix[6] + matrix[12] * other.matrix[7];
+    result.matrix[8] = matrix[0] * other.matrix[8] + matrix[4] * other.matrix[9] + matrix[8] * other.matrix[10] + matrix[12] * other.matrix[11];
+    result.matrix[12] = matrix[0] * other.matrix[12] + matrix[4] * other.matrix[13] + matrix[8] * other.matrix[14] + matrix[12] * other.matrix[15];
+
+    result.matrix[1] = matrix[1] * other.matrix[0] + matrix[5] * other.matrix[1] + matrix[9] * other.matrix[2] + matrix[13] * other.matrix[3];
+    result.matrix[5] = matrix[1] * other.matrix[4] + matrix[5] * other.matrix[5] + matrix[9] * other.matrix[6] + matrix[13] * other.matrix[7];
+    result.matrix[9] = matrix[1] * other.matrix[8] + matrix[5] * other.matrix[9] + matrix[9] * other.matrix[10] + matrix[13] * other.matrix[11];
+    result.matrix[13] = matrix[1] * other.matrix[12] + matrix[5] * other.matrix[13] + matrix[9] * other.matrix[14] + matrix[13] * other.matrix[15];
+
+    result.matrix[2] = matrix[2] * other.matrix[0] + matrix[6] * other.matrix[4] + matrix[10] * other.matrix[8] + matrix[14] * other.matrix[12];
+    result.matrix[6] = matrix[2] * other.matrix[4] + matrix[6] * other.matrix[5] + matrix[10] * other.matrix[9] + matrix[14] * other.matrix[13];
+    result.matrix[10] = matrix[2] * other.matrix[8] + matrix[6] * other.matrix[6] + matrix[10] * other.matrix[10] + matrix[14] * other.matrix[14];
+    result.matrix[14] = matrix[2] * other.matrix[12] + matrix[6] * other.matrix[7] + matrix[10] * other.matrix[11] + matrix[14] * other.matrix[15];
+
+    result.matrix[3] = matrix[3] * other.matrix[0] + matrix[7] * other.matrix[4] + matrix[11] * other.matrix[8] + matrix[15] * other.matrix[3];
+    result.matrix[7] = matrix[3] * other.matrix[4] + matrix[7] * other.matrix[5] + matrix[11] * other.matrix[9] + matrix[15] * other.matrix[7];
+    result.matrix[11] = matrix[3] * other.matrix[8] + matrix[7] * other.matrix[6] + matrix[11] * other.matrix[10] + matrix[15] * other.matrix[11];
+    result.matrix[15] = matrix[3] * other.matrix[12] + matrix[7] * other.matrix[7] + matrix[11] * other.matrix[11] + matrix[15] * other.matrix[15];*/
+
+    //result.matrix[0] = matrix[0] * other.matrix[0] + matrix[1] * other.matrix[4] + matrix[2] * other.matrix[8] + matrix[3] * other.matrix[12];        //
+    //result.matrix[4] = matrix[4] * other.matrix[0] + matrix[5] * other.matrix[4] + matrix[6] * other.matrix[8] + matrix[7] * other.matrix[12];        //
+    //result.matrix[8] = matrix[8] * other.matrix[0] + matrix[9] * other.matrix[4] + matrix[10] * other.matrix[8] + matrix[11] * other.matrix[12];      //
+    //result.matrix[12] = matrix[12] * other.matrix[0] + matrix[13] * other.matrix[4] + matrix[14] * other.matrix[8] + matrix[15] * other.matrix[12];   //
+
+    //result.matrix[1] = matrix[0] * other.matrix[1] + matrix[1] * other.matrix[5] + matrix[2] * other.matrix[9] + matrix[3] * other.matrix[13];        //
+    //result.matrix[5] = matrix[4] * other.matrix[1] + matrix[5] * other.matrix[5] + matrix[6] * other.matrix[9] + matrix[7] * other.matrix[13];        //
+    //result.matrix[9] = matrix[8] * other.matrix[1] + matrix[9] * other.matrix[5] + matrix[10] * other.matrix[9] + matrix[11] * other.matrix[13]; 
+    //result.matrix[13] = matrix[12] * other.matrix[1] + matrix[13] * other.matrix[5] + matrix[14] * other.matrix[9] + matrix[15] * other.matrix[13];   
+
+    //result.matrix[2] = matrix[0] * other.matrix[2] + matrix[1] * other.matrix[6] + matrix[2] * other.matrix[10] + matrix[3] * other.matrix[14];      
+    //result.matrix[6] = matrix[4] * other.matrix[2] + matrix[5] * other.matrix[6] + matrix[6] * other.matrix[10] + matrix[7] * other.matrix[14];      
+    //result.matrix[10] = matrix[8] * other.matrix[2] + matrix[9] * other.matrix[6] + matrix[10] * other.matrix[10] + matrix[11] * other.matrix[14];    
+    //result.matrix[14] = matrix[12] * other.matrix[2] + matrix[13] * other.matrix[6] + matrix[14] * other.matrix[10] + matrix[15] * other.matrix[14];   
+
+    //result.matrix[3] = matrix[0] * other.matrix[3] + matrix[1] * other.matrix[7] + matrix[2] * other.matrix[11] + matrix[3] * other.matrix[15];       
+    //result.matrix[7] = matrix[4] * other.matrix[3] + matrix[5] * other.matrix[7] + matrix[6] * other.matrix[11] + matrix[7] * other.matrix[15];       
+    //result.matrix[11] = matrix[8] * other.matrix[3] + matrix[9] * other.matrix[7] + matrix[10] * other.matrix[11] + matrix[11] * other.matrix[15];    
+    //result.matrix[15] = matrix[12] * other.matrix[3] + matrix[13] * other.matrix[7] + matrix[14] * other.matrix[11] + matrix[15] * other.matrix[15];
+
     return result;
   }
 
@@ -392,11 +433,24 @@ struct Mat4
     *this = *this * other;
   }
 
+  void transpose()
+  {
+    for (uint32_t i = 0; i < 4; ++i)
+    {
+      for (uint32_t j = 0; j < 4; ++j)
+      {
+        float fTemp = matrix[i * 4 + j];
+        matrix[i * 4 + j] = matrix[j * 4 + i];
+        matrix[j * 4 + i] = fTemp;
+      }
+    }
+  }
+
   void setPosition(float _fX, float _fY, float _fZ)
   {
-    matrix[3] = _fX;
-    matrix[7] = _fY;
-    matrix[11] = _fZ;
+    matrix[12] = _fX;
+    matrix[13] = _fY;
+    matrix[14] = _fZ;
   }
 
   void setPosition(const Vec3& _vec3Position)
@@ -406,14 +460,27 @@ struct Mat4
 
   void setScale(float _fX, float _fY, float _fZ)
   {
-    matrix[0] *= _fX;
-    matrix[4] *= _fY;
-    matrix[8] *= _fZ;
+    matrix[0] = _fX;
+    matrix[5] = _fY;
+    matrix[10] = _fZ;
   }
 
   void setScale(const Vec3& _vec3Scale)
   {
     setScale(_vec3Scale.x, _vec3Scale.y, _vec3Scale.z);
+  }
+
+  void print()
+  {
+    for (uint32_t i = 0; i < 4; ++i)
+    {
+      for (uint32_t j = 0; j < 4; ++j)
+      {
+        printf("%.6f\t", matrix[i + (j * 4)]);
+      }
+      printf("\n");
+    }
+    printf("\n\n\n");
   }
 };
 // ========================================================

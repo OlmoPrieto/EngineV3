@@ -2,8 +2,8 @@
 
 #include "opengl_implementation.h"
 
-CommandClear::CommandClear(const Color& _oColor)
-  : m_oColor(_oColor)
+CommandClear::CommandClear(uint32_t _uClearTarget)
+  : m_uClearTarget(_uClearTarget)
 {
 
 }
@@ -15,5 +15,5 @@ CommandClear::~CommandClear()
 
 void CommandClear::execute()
 {
-  sm_oOpenGL.clearColor(m_oColor);
+  sm_oOpenGL.clear(m_uClearTarget);
 }

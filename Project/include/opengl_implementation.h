@@ -1,5 +1,15 @@
 #pragma once
 
+#ifdef __PLATFORM_MACOSX__
+#include <OpenGL/gl3.h>
+#elif __PLATFORM_LINUX__
+#include <glew/include/GL/glew.h>
+#elif __PLATFORM_WINDOWS__
+#include <glew/include/GL/glew.h>
+#elif __PLATFORM_ANDROID__
+#include <GLES2/gl2.h>
+#endif
+
 #include "attribute.h"
 #include "mesh.h"
 #include "program.h"
@@ -8,6 +18,17 @@
 #include "utils.h"
 
 class OpenGLImplementation {
+public:
+  // ----------------------------
+  static void PrintGLError();
+  // ----------------------------
+
+  enum class EClearTarget
+  {
+    COLOR = GL_COLOR_BUFFER_BIT,
+    DEPTH = GL_DEPTH_BUFFER_BIT
+  };
+
 private:
   friend class GPUCommand;
   friend class CommandPrepareMaterial;
@@ -55,6 +76,7 @@ private:
 
   // Render
   void draw(const Mesh& _oMesh);
+  void clear(uint32_t _uClearTarget);
 
   //
   void clearColor(const Color& _oColor);

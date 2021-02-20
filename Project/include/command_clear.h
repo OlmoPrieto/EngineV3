@@ -1,16 +1,15 @@
 #pragma once
 
 #include "gpu_command.h"
-#include "utils.h"
 
 class CommandClear : public GPUCommand
 {
 public:
-  CommandClear(const Color& _oColor);
+  CommandClear(uint32_t _uClearTarget);
   ~CommandClear();
 
   void execute() override;
 
 private:
-  Color m_oColor;
+  uint32_t m_uClearTarget;
 };

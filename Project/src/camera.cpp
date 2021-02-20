@@ -44,14 +44,16 @@ void Camera::setProjectionToOrthographic()
   float fBottom = -1.0f;
 
   float fAspectRatio = m_uRenderWidth / m_uRenderHeight;
-  if (m_uRenderWidth > m_uRenderHeight) {
+  if (m_uRenderWidth > m_uRenderHeight) 
+  {
     fAspectRatio = m_uRenderWidth / m_uRenderHeight;
     fRight = m_uRenderWidth;
     fLeft = 0.0f;
     fTop = m_uRenderHeight;
     fBottom = 0.0f;
   }
-  else {
+  else 
+  {
     fAspectRatio = m_uRenderHeight / m_uRenderWidth;
     fRight = m_uRenderWidth;
     fLeft = 0.0f;

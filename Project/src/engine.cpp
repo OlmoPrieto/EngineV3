@@ -3,6 +3,9 @@
 #include "scene.h"
 #include "camera.h"
 
+uint32_t Engine::s_uWindowWidth = 720u;
+uint32_t Engine::s_uWindowHeight = 480u;
+
 Engine::Engine() 
 {
 

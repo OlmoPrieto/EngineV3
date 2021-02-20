@@ -57,6 +57,7 @@ Attribute::Attribute(ValueType _eType, const std::string& _sName)
     case ValueType::Mat4:
     {
       m_pData = new Mat4();
+      break;
     }
     case ValueType::Texture:
     {

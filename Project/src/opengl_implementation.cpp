@@ -1,16 +1,24 @@
 #include "opengl_implementation.h"
 
-#ifdef __PLATFORM_MACOSX__
-#include <OpenGL/gl3.h>
-#elif __PLATFORM_LINUX__
-#include <glew/include/GL/glew.h>
-#elif __PLATFORM_WINDOWS__
-#include <glew/include/GL/glew.h>
-#elif __PLATFORM_ANDROID__
-#include <GLES2/gl2.h>
-#endif
-
 #include <cassert>
+
+// ---------------------------------------------------------
+void OpenGLImplementation::PrintGLError()
+{
+  GLenum err = glGetError();
+  while (err != GL_NO_ERROR)
+  {
+    if (err == GL_INVALID_OPERATION)
+      printf("Invalid operation\n");
+    else if (err == GL_INVALID_ENUM)
+      printf("Invalid enum\n");
+    else if (err == GL_INVALID_VALUE)
+      printf("Invalid value\n");
+
+    err = glGetError();
+  }
+}
+// ---------------------------------------------------------
 
 OpenGLImplementation::OpenGLImplementation() {
 
@@ -166,11 +174,6 @@ void OpenGLImplementation::setUniformValue(int32_t _uUniformLocation, ValueType 
     }
     case ValueType::Mat4:
     {
-      for (uint32_t i = 0; i < 16; ++i)
-      {
-        printf("%.10f\n", *(_pData + i * sizeof(float)));
-      }
-      printf("\n");
       glUniformMatrix4fv(_uUniformLocation, 1, false, (const GLfloat*)_pData);
       break;
     }
@@ -410,8 +413,6 @@ void OpenGLImplementation::setData(Mesh& _oMesh_)
 // 
 void OpenGLImplementation::enableVertexAttributesPointers(Mesh& _oMesh_)
 {
-  glEnable(GL_DEPTH_TEST);
-
   glBindBuffer(GL_ARRAY_BUFFER, _oMesh_.m_iInternalId);
 
   if (_oMesh_.getVerticesPositions().size() > 0)
@@ -479,41 +480,24 @@ void OpenGLImplementation::draw(const Mesh& _oMesh)
 {
   glBindBuffer(GL_ARRAY_BUFFER, _oMesh.m_iInternalId);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _oMesh.m_iInternalId);
-  /*uint32_t indices[6];
-  glGetBufferSubData(GL_ARRAY_BUFFER, ((_oMesh.getVerticesPositions().size() + _oMesh.getVerticesNormals().size() + _oMesh.getVerticesUVs().size()) * sizeof(float)),
-  6 * sizeof(uint32_t), indices);*/
-  GLenum err = glGetError();
-  while (err != GL_NO_ERROR)
-  {
-    if (err == GL_INVALID_OPERATION)
-      printf("Invalid operation\n");
-    else if (err == GL_INVALID_ENUM)
-      printf("Invalid enum\n");
-    else if (err == GL_INVALID_VALUE)
-      printf("Invalid value\n");
-
-    err = glGetError();
-  }
-  
 
   glDrawElements(GL_TRIANGLES, _oMesh.getVerticesIndices().size(), GL_UNSIGNED_INT, 
   (void*)((_oMesh.getVerticesPositions().size() + _oMesh.getVerticesNormals().size() + _oMesh.getVerticesUVs().size()) * sizeof(float))); // TODO: have a function to calculate/return the offset for the indices. Whenever data changes in the mesh, this value must be recalculated
-  /*int eabb = -1;
-  glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &eabb);
-  printf("GL_ELEMENT_ARRAY_BUFFER_BINDING: %d\n", eabb);
-  int eabbs = -1;
-  glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &eabbs);
-  printf("GL_BUFFER_SIZE: %d\n", eabbs);
-  printf("OFFSET: %d\n", (_oMesh.getVerticesPositions().size() + _oMesh.getVerticesNormals().size() + _oMesh.getVerticesUVs().size()) * sizeof(float));
-  printf("OFFSET + indices size: %d\n", (_oMesh.getVerticesPositions().size() + _oMesh.getVerticesNormals().size() + _oMesh.getVerticesUVs().size()) * sizeof(float) + (_oMesh.getVerticesIndices().size() * sizeof(uint32_t)));*/
+
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
+
+void OpenGLImplementation::clear(uint32_t _uClearTarget)
+{
+  glClear(_uClearTarget);
+}
+
 // [ \RENDER ]
 
-// [ CLEAR ]
+// [ CLEAR COLOR ]
 void OpenGLImplementation::clearColor(const Color & _oColor)
 {
   glClearColor(_oColor.r / 255, _oColor.g / 255, _oColor.b / 255, _oColor.a / 255);
 }
-// [ \CLEAR]
+// [ \CLEAR COLOR]

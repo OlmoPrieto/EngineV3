@@ -4,9 +4,6 @@
 #include "input.h"
 #include "engine.h"
 #include "scene.h"
-#include "camera.h"
-#include "render_component.h"
-#include "transform_component.h"
 
 #ifdef __PLATFORM_MACOSX__
   #include <OpenGL/gl3.h>
@@ -21,9 +18,6 @@ typedef unsigned char byte;
 
 // GLOBAL VARIABLES
 GLFWwindow* g_window = nullptr;
-uint32_t g_uWindowWidth  = 720;
-uint32_t g_uWindowHeight = 480;
-
 
 static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) 
 {
@@ -50,8 +44,7 @@ void InitializeGraphics()
     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
   #endif
 
-  Engine::GetInstance().getWindowSize(g_uWindowWidth, g_uWindowHeight);
-  g_window = glfwCreateWindow(g_uWindowWidth, g_uWindowHeight, "Window", NULL, NULL);
+  g_window = glfwCreateWindow(Engine::s_uWindowWidth, Engine::s_uWindowHeight, "Window", NULL, NULL);
   if (!g_window) 
   {
     glfwTerminate();
@@ -75,17 +68,10 @@ int main()
   InitializeGraphics();
 
   Scene oScene;
-  Node& oRoot = oScene.getRoot();
-  std::unique_ptr<RenderComponent> oRenderComponent = std::make_unique<RenderComponent>();
-  std::unique_ptr<TransformComponent> oTransformComponent = std::make_unique<TransformComponent>();
-  oRoot.addComponent(std::move(oRenderComponent));
-  oRoot.addComponent(std::move(oTransformComponent));
-
-  Camera oCamera(Camera::EType::Orthographic, g_uWindowWidth, g_uWindowHeight);
+  oScene.init();
 
   Engine& oEngine = Engine::GetInstance();
   oEngine.setCurrentScene(&oScene);
-  oEngine.setCurrentCamera(&oCamera);
 
   // TODO: if making a pause mode in Game, make the cursor
   // to reappear when pausing the game and to hide
@@ -96,6 +82,15 @@ int main()
   Chrono c;
   double prev_x_pos = 0.0, prev_y_pos = 0.0;
   double x_pos = 0.0, y_pos = 0.0;
+
+  GLuint uVaoId = 0;
+  glGenVertexArrays(1, &uVaoId);
+  glBindVertexArray(uVaoId);
+
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glDisable(GL_DEPTH_TEST);
+  glEnable(GL_BLEND);
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   while (!glfwWindowShouldClose(g_window)) 
   {
     glfwPollEvents();
@@ -134,7 +129,6 @@ int main()
     oEngine.loop();
 
     glfwSwapBuffers(g_window);
-    //glfwPollEvents();
   }
 
   return 0;
