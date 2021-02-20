@@ -46,6 +46,12 @@ void TransformComponent::setPosition(float _fX, float _fY, float _fZ)
   m_bDirty = true;
 }
 
+void TransformComponent::setPosition(const Vec3& _v3Pos)
+{
+  m_vec3Position = _v3Pos;
+  m_bDirty = true;
+}
+
 void TransformComponent::setScale(float _fX, float _fY, float _fZ)
 {
   m_vec3Scale.set(_fX, _fY, _fZ);

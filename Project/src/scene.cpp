@@ -6,6 +6,7 @@
 #include "render_component.h"
 #include "transform_component.h"
 #include "engine.h"
+#include "input.h"
 
 Scene::Scene()
   : m_oCamera(Camera::EType::Orthographic, Engine::s_uWindowWidth, Engine::s_uWindowHeight)
@@ -30,7 +31,12 @@ void Scene::init()
 
 void Scene::update(float _fFrameTime)
 {
-
+  if (Input::tapped())
+  {
+    TransformComponent* pTransform = m_oRoot.getComponent<TransformComponent>("TRANSFORM");
+    Vec3 v3CurrentPos = pTransform->getPosition();
+    pTransform->setPosition(v3CurrentPos.x + 10.0f, v3CurrentPos.y, 0.0);
+  }
 }
 
 namespace
