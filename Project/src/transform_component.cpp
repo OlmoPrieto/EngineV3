@@ -6,8 +6,8 @@ std::string TransformComponent::sm_sName = "TRANSFORM";
 
 TransformComponent::TransformComponent()
 {
-  setScale(20.0f, 20.0f, 10.0f);
-  setPosition(360.0f, 240.0f, 0.0f);
+  setScale(20.0f, 20.0f, 1.0f);
+  setPosition(0.0f, 0.0f, 0.0f);
 }
 
 TransformComponent::~TransformComponent()
@@ -31,9 +31,17 @@ Mat4 TransformComponent::getWorldTransform()
     TransformComponent* pParentTransformComponent = pParent->getComponent<TransformComponent>("TRANSFORM");
     if (pParentTransformComponent)
     {
-      Mat4 mat4WorldTransform = pParentTransformComponent->getWorldTransform();
+      // WORLD MATRIX = LOCAL MATRIX * WORLD PARENT
+
+      /*Mat4 mat4WorldTransform = pParentTransformComponent->getWorldTransform();
       mat4WorldTransform.inverse();
-      return m_mat4LocalTransform * mat4WorldTransform;
+      return mat4WorldTransform * m_mat4LocalTransform;*/
+      Mat4 mat4WorldTransform = pParentTransformComponent->getWorldTransform();
+      Mat4 mat4InverseLocal = m_mat4LocalTransform;
+      //mat4InverseLocal.inverse();
+      Mat4 returnMat = mat4InverseLocal * mat4WorldTransform;
+      returnMat.setScale(20.0f, 20.0f, 0.0f);
+      return returnMat; // COMMENT: results 100 units to the left instead of right
     }
   }
 

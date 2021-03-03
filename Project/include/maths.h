@@ -223,6 +223,8 @@ struct Mat4
 
   void inverse()
   {
+    // https://stackoverflow.com/questions/1148309/inverting-a-4x4-matrix
+
     float inv[16];
     float det = 0.0f;
 

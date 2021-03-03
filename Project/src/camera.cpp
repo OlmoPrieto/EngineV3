@@ -65,7 +65,7 @@ void Camera::setProjectionToOrthographic()
   float fFar = 1.0f;
   float fFov = 60.0f;
 
-  m_mat4ProjectionMatrix.matrix[0] = 2.0f / (fRight - fLeft);
+  /*m_mat4ProjectionMatrix.matrix[0] = 2.0f / (fRight - fLeft);
   m_mat4ProjectionMatrix.matrix[1] = 0.0f;
   m_mat4ProjectionMatrix.matrix[2] = 0.0f;
   m_mat4ProjectionMatrix.matrix[3] = 0.0f;
@@ -83,5 +83,25 @@ void Camera::setProjectionToOrthographic()
   m_mat4ProjectionMatrix.matrix[12] = -(fRight + fLeft) / (fRight - fLeft);
   m_mat4ProjectionMatrix.matrix[13] = -(fTop + fBottom) / (fTop - fBottom);
   m_mat4ProjectionMatrix.matrix[14] = -(fFar + fNear) / (fFar - fNear);
+  m_mat4ProjectionMatrix.matrix[15] = 1.0f;*/
+
+  m_mat4ProjectionMatrix.matrix[0] = 2.0f / (fRight - fLeft);
+  m_mat4ProjectionMatrix.matrix[1] = 0.0f;
+  m_mat4ProjectionMatrix.matrix[2] = 0.0f;
+  m_mat4ProjectionMatrix.matrix[3] = -(fRight + fLeft) / (fRight - fLeft);
+
+  m_mat4ProjectionMatrix.matrix[4] = 0.0f;
+  m_mat4ProjectionMatrix.matrix[5] = 2.0f / (fTop - fBottom);
+  m_mat4ProjectionMatrix.matrix[6] = 0.0f;
+  m_mat4ProjectionMatrix.matrix[7] = -(fTop + fBottom) / (fTop - fBottom);
+
+  m_mat4ProjectionMatrix.matrix[8] = 0.0f;
+  m_mat4ProjectionMatrix.matrix[9] = 0.0f;
+  m_mat4ProjectionMatrix.matrix[10] = -2.0f / (fFar - fNear);
+  m_mat4ProjectionMatrix.matrix[11] = -(fFar + fNear) / (fFar - fNear);
+
+  m_mat4ProjectionMatrix.matrix[12] = 0.0f;
+  m_mat4ProjectionMatrix.matrix[13] = 0.0f;
+  m_mat4ProjectionMatrix.matrix[14] = 0.0f;
   m_mat4ProjectionMatrix.matrix[15] = 1.0f;
 }

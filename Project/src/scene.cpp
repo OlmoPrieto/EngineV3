@@ -23,14 +23,27 @@ void Scene::init()
 {
   std::unique_ptr<RenderComponent> oRenderComponent = std::make_unique<RenderComponent>();
   std::unique_ptr<TransformComponent> oTransformComponent = std::make_unique<TransformComponent>();
+  //oTransformComponent->setPosition(360.0f, 240.0f, 0.0f);
   m_oRoot.addComponent(std::move(oRenderComponent));
   m_oRoot.addComponent(std::move(oTransformComponent));
+
+  std::unique_ptr<Node> pNewNode = std::make_unique<Node>();
+  std::unique_ptr<RenderComponent> oRenderComponent2 = std::make_unique<RenderComponent>();
+  std::unique_ptr<TransformComponent> oTransformComponent2 = std::make_unique<TransformComponent>();
+  oTransformComponent2->setPosition(100.0f, 0.0f, 0.0f);
+  pNewNode->m_sName = "child";
+  pNewNode->addComponent(std::move(oRenderComponent2));
+  pNewNode->addComponent(std::move(oTransformComponent2));
+
+  m_oRoot.addChild(std::move(pNewNode));
   
   Engine::GetInstance().setCurrentCamera(&m_oCamera);
 }
 
 void Scene::update(float _fFrameTime)
 {
+
+
   if (Input::tapped())
   {
     TransformComponent* pTransform = m_oRoot.getComponent<TransformComponent>("TRANSFORM");
