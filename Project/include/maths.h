@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <cstring>
 #include <cstdio>
+#include <cmath>
 
 namespace utils 
 {
@@ -188,6 +189,38 @@ struct Vec3
     Vec3 r(*this);
     r.x += other.x; r.y += other.y; r.z += other.z;
     return r;
+  }
+
+  Vec3 operator - (const Vec3& other)
+  {
+    Vec3 r(*this);
+    r.x -= other.x; r.y -= other.y; r.z -= other.z;
+    return r;
+  }
+
+  Vec3 cross(const Vec3& other)
+  {
+    Vec3 r;
+    r.x = y * other.z - z * other.y;
+    r.y = -(x * other.z - z * other.x);
+    r.z = x * other.y - y * other.x;
+
+    return r;
+  }
+
+  void normalize()
+  {
+    float fLenght = sqrt((x * x) + (y * y) + (z * z));
+    x /= fLenght;
+    y /= fLenght;
+    z /= fLenght;
+  }
+
+  static Vec3 normalize(const Vec3& _vec3Other)
+  {
+    Vec3 vec3Result = _vec3Other;
+    vec3Result.normalize();
+    return vec3Result;
   }
 
 };
@@ -377,8 +410,8 @@ struct Mat4
     result.matrix[6] = matrix[4] * other.matrix[2] + matrix[5] * other.matrix[6] + matrix[6] * other.matrix[10] + matrix[7] * other.matrix[14];
     result.matrix[7] = matrix[4] * other.matrix[3] + matrix[5] * other.matrix[7] + matrix[6] * other.matrix[11] + matrix[7] * other.matrix[15];
 
-    result.matrix[8] = matrix[8] * other.matrix[0] + matrix[9] * other.matrix[4] + matrix[10] * other.matrix[8] + matrix[11] * other.matrix[12];
-    result.matrix[9] = matrix[8] * other.matrix[1] + matrix[9] * other.matrix[5] + matrix[10] * other.matrix[9] + matrix[11] * other.matrix[13];
+    result.matrix[8]  = matrix[8] * other.matrix[0] + matrix[9] * other.matrix[4] + matrix[10] * other.matrix[8] + matrix[11] * other.matrix[12];
+    result.matrix[9]  = matrix[8] * other.matrix[1] + matrix[9] * other.matrix[5] + matrix[10] * other.matrix[9] + matrix[11] * other.matrix[13];
     result.matrix[10] = matrix[8] * other.matrix[2] + matrix[9] * other.matrix[6] + matrix[10] * other.matrix[10] + matrix[11] * other.matrix[14];
     result.matrix[11] = matrix[8] * other.matrix[3] + matrix[9] * other.matrix[7] + matrix[10] * other.matrix[11] + matrix[11] * other.matrix[15];
 
@@ -386,6 +419,7 @@ struct Mat4
     result.matrix[13] = matrix[12] * other.matrix[1] + matrix[13] * other.matrix[5] + matrix[14] * other.matrix[9] + matrix[15] * other.matrix[13];
     result.matrix[14] = matrix[12] * other.matrix[2] + matrix[13] * other.matrix[6] + matrix[14] * other.matrix[10] + matrix[15] * other.matrix[14];
     result.matrix[15] = matrix[12] * other.matrix[3] + matrix[13] * other.matrix[7] + matrix[14] * other.matrix[11] + matrix[15] * other.matrix[15];
+
 
     /*result.matrix[0] = matrix[0] * other.matrix[0] + matrix[4] * other.matrix[1] + matrix[8] * other.matrix[2] + matrix[12] * other.matrix[3];
     result.matrix[4] = matrix[0] * other.matrix[4] + matrix[4] * other.matrix[5] + matrix[8] * other.matrix[6] + matrix[12] * other.matrix[7];
@@ -406,6 +440,7 @@ struct Mat4
     result.matrix[7] = matrix[3] * other.matrix[4] + matrix[7] * other.matrix[5] + matrix[11] * other.matrix[9] + matrix[15] * other.matrix[7];
     result.matrix[11] = matrix[3] * other.matrix[8] + matrix[7] * other.matrix[6] + matrix[11] * other.matrix[10] + matrix[15] * other.matrix[11];
     result.matrix[15] = matrix[3] * other.matrix[12] + matrix[7] * other.matrix[7] + matrix[11] * other.matrix[11] + matrix[15] * other.matrix[15];*/
+
 
     //result.matrix[0] = matrix[0] * other.matrix[0] + matrix[1] * other.matrix[4] + matrix[2] * other.matrix[8] + matrix[3] * other.matrix[12];        //
     //result.matrix[4] = matrix[4] * other.matrix[0] + matrix[5] * other.matrix[4] + matrix[6] * other.matrix[8] + matrix[7] * other.matrix[12];        //
@@ -453,6 +488,10 @@ struct Mat4
     matrix[12] = _fX;
     matrix[13] = _fY;
     matrix[14] = _fZ;
+	
+	  /*matrix[3] = _fX;
+    matrix[7] = _fY;
+    matrix[11] = _fZ;*/
   }
 
   void setPosition(const Vec3& _vec3Position)

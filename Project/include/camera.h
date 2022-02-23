@@ -20,11 +20,13 @@ public:
   const float* getProjectionMatrixData() const { return m_mat4ProjectionMatrix.matrix; }
 
   void setProjectionToOrthographic();
+  void setProjectionToPerspective();
 
 private:
   Camera();
 
   Mat4 m_mat4ProjectionMatrix;
+  Mat4 m_mat4ViewMatrix;
   EType m_eType = EType::Orthographic;
   Color m_oClearColor;
   uint32_t m_uRenderWidth = 0;
