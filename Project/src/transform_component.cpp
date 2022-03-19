@@ -30,7 +30,7 @@ Mat4 TransformComponent::getWorldTransform()
     TransformComponent* pParentTransformComponent = pParent->getComponent<TransformComponent>("TRANSFORM");
     if (pParentTransformComponent)
     {
-      // WORLD MATRIX = WORLD PARENT * LOCAL MATRIX
+      // WORLD MATRIX = WORLD PARENT * LOCAL MATRIX in row major
       Mat4 mat4WorldTransform = pParentTransformComponent->getWorldTransform();
       Mat4 mat4Local = m_mat4LocalTransform;
       Mat4 returnMat = mat4WorldTransform * mat4Local;

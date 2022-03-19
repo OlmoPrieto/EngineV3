@@ -9,8 +9,8 @@
 #include "input.h"
 
 Scene::Scene()
-  : m_oCamera(Camera::EType::Orthographic, Engine::s_uWindowWidth, Engine::s_uWindowHeight)
-  //: m_oCamera(Camera::EType::Perspective, Engine::s_uWindowWidth, Engine::s_uWindowHeight)
+  //: m_oCamera(Camera::EType::Orthographic, Engine::s_uWindowWidth, Engine::s_uWindowHeight)
+  : m_oCamera(Camera::EType::Perspective, Engine::s_uWindowWidth, Engine::s_uWindowHeight)
 {
   m_oRoot.m_sName = "ROOT";
 }
@@ -24,16 +24,16 @@ void Scene::init()
 {
   std::unique_ptr<RenderComponent> oRenderComponent = std::make_unique<RenderComponent>();
   std::unique_ptr<TransformComponent> oTransformComponent = std::make_unique<TransformComponent>();
-  oTransformComponent->setPosition(-80.0f, 20.0f, 0.0f);
+  oTransformComponent->setPosition(0.0f, 0.0f, -50.0f);
   //oTransformComponent->setPosition(0.0f, 0.0f, 0.0f);
-  oTransformComponent->setScale(10.0f, 30.0f, 1.0f);
+  oTransformComponent->setScale(1.0f, 1.0f, 1.0f);
   m_oRoot.addComponent(std::move(oRenderComponent));
   m_oRoot.addComponent(std::move(oTransformComponent));
 
   std::unique_ptr<Node> pNewNode = std::make_unique<Node>();
   std::unique_ptr<RenderComponent> oRenderComponent2 = std::make_unique<RenderComponent>();
   std::unique_ptr<TransformComponent> oTransformComponent2 = std::make_unique<TransformComponent>();
-  oTransformComponent2->setPosition(40.0f, 0.0f, 0.0f);
+  oTransformComponent2->setPosition(10.0f, 0.0f, 0.0f);
   //oTransformComponent2->setScale(100.0f, 100.0f, 1.0f);
   oTransformComponent2->setScale(1.0f, 1.0f, 1.0f);
   pNewNode->m_sName = "child";
@@ -53,12 +53,12 @@ void Scene::update(float _fFrameTime)
   {
     printf("Tapped\n");
     TransformComponent* pTransformRoot = m_oRoot.getComponent<TransformComponent>("TRANSFORM");
-    Vec3 v3CurrentPosRoot = pTransformRoot->getPosition();
-    pTransformRoot->setPosition(v3CurrentPosRoot.x + 10.0f, v3CurrentPosRoot.y, 0.0);
+    const Vec3& v3CurrentPosRoot = pTransformRoot->getPosition();
+    pTransformRoot->setPosition(v3CurrentPosRoot.x + 0.0f, v3CurrentPosRoot.y, v3CurrentPosRoot.z);
     
     TransformComponent* pTransformChild = m_oRoot.getChildren()[0]->getComponent<TransformComponent>("TRANSFORM");
-    Vec3 v3CurrentPosChild = pTransformChild->getPosition();
-    pTransformChild->setPosition(v3CurrentPosChild.x + 0.0f, v3CurrentPosChild.y, 0.0);
+    const Vec3& v3CurrentPosChild = pTransformChild->getPosition();
+    pTransformChild->setPosition(v3CurrentPosChild.x + 1.0f, v3CurrentPosChild.y, v3CurrentPosChild.z);
   }
 }
 

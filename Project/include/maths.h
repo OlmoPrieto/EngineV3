@@ -202,7 +202,8 @@ struct Vec3
   {
     Vec3 r;
     r.x = y * other.z - z * other.y;
-    r.y = -(x * other.z - z * other.x);
+    //r.y = -(x * other.z - z * other.x);
+    r.y = z * other.x - x * other.z;
     r.z = x * other.y - y * other.x;
 
     return r;
@@ -397,7 +398,7 @@ struct Mat4
     matrix[12] = other.matrix[12]; matrix[13] = other.matrix[13]; matrix[14] = other.matrix[14]; matrix[15] = other.matrix[15];
   }
 
-  Mat4 operator *(const Mat4& other) 
+  Mat4 operator *(const Mat4& other) const
   {
     Mat4 result;
     result.matrix[0] = matrix[0] * other.matrix[0] + matrix[1] * other.matrix[4] + matrix[2] * other.matrix[8] + matrix[3] * other.matrix[12];

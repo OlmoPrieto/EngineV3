@@ -17,7 +17,7 @@ public:
   void setPosition(const Vec3& _v3Pos);
   void setScale(float _fX, float _fY, float _fZ);
 
-  Vec3 getPosition() { return m_vec3Position; }
+  const Vec3& getPosition() { return m_vec3Position; }
 
 private:
   void setChildrenDirtyState(bool _bState);

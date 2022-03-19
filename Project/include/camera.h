@@ -18,6 +18,8 @@ public:
   EType getType() const { return m_eType; }
   const Mat4& getProjectionMatrix() const { return m_mat4ProjectionMatrix; }
   const float* getProjectionMatrixData() const { return m_mat4ProjectionMatrix.matrix; }
+  const Mat4& getViewMatrix() const { return m_mat4ViewMatrix; }
+  const float* getViewMatrixData() const { return m_mat4ViewMatrix.matrix; }
 
   void setProjectionToOrthographic();
   void setProjectionToPerspective();
