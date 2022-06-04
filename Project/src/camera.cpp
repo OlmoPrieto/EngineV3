@@ -37,58 +37,17 @@ Camera::~Camera()
 }
 
 void Camera::setProjectionToOrthographic()
-{
-  /*float fRight  =  1.0f;
-  float fLeft   = -1.0f;
-  float fTop    =  1.0f;
-  float fBottom = -1.0f;*/
-  
+{ 
   float fRight  =  (float)m_uRenderWidth  * 0.5f;
   float fLeft   = -(float)m_uRenderWidth  * 0.5f;
   float fTop    =  (float)m_uRenderHeight * 0.5f;
   float fBottom = -(float)m_uRenderHeight * 0.5f;
 
   float fAspectRatio = (float)m_uRenderWidth / (float)m_uRenderHeight;
-  /*if (m_uRenderWidth > m_uRenderHeight) 
-  {
-    fAspectRatio = (float)m_uRenderWidth / (float)m_uRenderHeight;
-    fRight = (float)m_uRenderWidth;
-    fLeft = 0.0f;
-    fTop = (float)m_uRenderHeight;
-    fBottom = 0.0f;
-  }
-  else 
-  {
-    fAspectRatio = (float)m_uRenderHeight / (float)m_uRenderWidth;
-    fRight = (float)m_uRenderWidth;
-    fLeft = 0.0f;
-    fTop = (float)m_uRenderHeight;
-    fBottom = 0.0f;
-  }*/
 
   float fNear = 0.1f;
   float fFar = 100.0f;
   float fFov = 60.0f;
-
-  /*m_mat4ProjectionMatrix.matrix[0] = 2.0f / (fRight - fLeft);
-  m_mat4ProjectionMatrix.matrix[1] = 0.0f;
-  m_mat4ProjectionMatrix.matrix[2] = 0.0f;
-  m_mat4ProjectionMatrix.matrix[3] = 0.0f;
-
-  m_mat4ProjectionMatrix.matrix[4] = 0.0f;
-  m_mat4ProjectionMatrix.matrix[5] = 2.0f / (fTop - fBottom);
-  m_mat4ProjectionMatrix.matrix[6] = 0.0f;
-  m_mat4ProjectionMatrix.matrix[7] = 0.0f;
-
-  m_mat4ProjectionMatrix.matrix[8] = 0.0f;
-  m_mat4ProjectionMatrix.matrix[9] = 0.0f;
-  m_mat4ProjectionMatrix.matrix[10] = -2.0f / (fFar - fNear);
-  m_mat4ProjectionMatrix.matrix[11] = 0.0f;
-
-  m_mat4ProjectionMatrix.matrix[12] = -(fRight + fLeft) / (fRight - fLeft);
-  m_mat4ProjectionMatrix.matrix[13] = -(fTop + fBottom) / (fTop - fBottom);
-  m_mat4ProjectionMatrix.matrix[14] = -(fFar + fNear) / (fFar - fNear);
-  m_mat4ProjectionMatrix.matrix[15] = 1.0f;*/
 
   m_mat4ProjectionMatrix.matrix[0] = 2.0f / (fRight - fLeft);
   m_mat4ProjectionMatrix.matrix[1] = 0.0f;
@@ -120,35 +79,13 @@ void Camera::setProjectionToPerspective()
   float fFar = 100.0f;
   float fFov = 60.0f;
 
-  //float fScale = 1.0f / tan((fFov * 0.5f * 3.14159f) / 180.0f);
-
-  /*m_mat4ProjectionMatrix.matrix[0] = fScale;
-  m_mat4ProjectionMatrix.matrix[5] = fScale;
-  m_mat4ProjectionMatrix.matrix[10] = -fFar / (fFar - fNear);
-
-  m_mat4ProjectionMatrix.matrix[11] = -1.0f;
-  m_mat4ProjectionMatrix.matrix[14] = -fFar * fNear / (fFar - fNear);
-  m_mat4ProjectionMatrix.matrix[15] = 0.0f;*/
-
-
-
   float fAspectRatio = (float)m_uRenderWidth / (float)m_uRenderHeight;
-  
-  /*float fTop = tan(fFov / 2.0f) * fNear;
-  float fBottom = -fTop;
-  float fRight = fTop * fAspectRatio;
-  float fLeft = -fTop * fAspectRatio;*/
 
   float fScale = tan((fFov * 0.5f * 3.14159f) / 180.0f) * fNear;
   float fRight = fAspectRatio * fScale;
   float fLeft = -fRight;
   float fTop = fScale;
   float fBottom = -fTop;
-
-  /*fRight *= (float)m_uRenderWidth;
-  fLeft *= (float)m_uRenderWidth;
-  fTop *= (float)m_uRenderHeight;
-  fBottom *= (float)m_uRenderHeight;*/
 
   m_mat4ProjectionMatrix.matrix[0]  = (2.0f * fNear) / (fRight - fLeft);
   m_mat4ProjectionMatrix.matrix[5]  = (2.0f * fNear) / (fTop - fBottom);
@@ -158,17 +95,6 @@ void Camera::setProjectionToPerspective()
   m_mat4ProjectionMatrix.matrix[9]  = (fTop + fBottom) / (fTop - fBottom);
   m_mat4ProjectionMatrix.matrix[11] = -1.0f;
   m_mat4ProjectionMatrix.matrix[14] = -((2.0f * fFar * fNear) / (fFar - fNear));
-  //m_mat4ProjectionMatrix.matrix[14] = -1.0f;
-  //m_mat4ProjectionMatrix.matrix[11] = -((2.0f * fFar * fNear) / (fFar - fNear));
-
-  /*m_mat4ProjectionMatrix.matrix[0] = 2.0f * fNear / (fRight - fLeft);
-  m_mat4ProjectionMatrix.matrix[5] = 2.0f * fNear / (fTop - fBottom);
-  m_mat4ProjectionMatrix.matrix[10] = -(fFar + fNear) / (fFar - fNear);
-  m_mat4ProjectionMatrix.matrix[15] = 0.0f;
-  m_mat4ProjectionMatrix.matrix[2] = (fRight + fLeft) / (fRight - fLeft);
-  m_mat4ProjectionMatrix.matrix[6] = (fTop + fBottom) / (fTop - fBottom);
-  m_mat4ProjectionMatrix.matrix[14] = -1.0f;
-  m_mat4ProjectionMatrix.matrix[11] = -2.0f * fFar * fNear / (fFar - fNear);*/
 
 
   // https://learnopengl.com/Getting-started/Camera
@@ -199,5 +125,4 @@ void Camera::setProjectionToPerspective()
   mat4Rotation.matrix[10] = vec3ZAxis.z;
 
   m_mat4ViewMatrix = mat4Rotation * m_mat4ViewMatrix;
-  //m_mat4ViewMatrix = m_mat4ViewMatrix * mat4Rotation;
 }

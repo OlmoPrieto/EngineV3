@@ -421,48 +421,6 @@ struct Mat4
     result.matrix[14] = matrix[12] * other.matrix[2] + matrix[13] * other.matrix[6] + matrix[14] * other.matrix[10] + matrix[15] * other.matrix[14];
     result.matrix[15] = matrix[12] * other.matrix[3] + matrix[13] * other.matrix[7] + matrix[14] * other.matrix[11] + matrix[15] * other.matrix[15];
 
-
-    /*result.matrix[0] = matrix[0] * other.matrix[0] + matrix[4] * other.matrix[1] + matrix[8] * other.matrix[2] + matrix[12] * other.matrix[3];
-    result.matrix[4] = matrix[0] * other.matrix[4] + matrix[4] * other.matrix[5] + matrix[8] * other.matrix[6] + matrix[12] * other.matrix[7];
-    result.matrix[8] = matrix[0] * other.matrix[8] + matrix[4] * other.matrix[9] + matrix[8] * other.matrix[10] + matrix[12] * other.matrix[11];
-    result.matrix[12] = matrix[0] * other.matrix[12] + matrix[4] * other.matrix[13] + matrix[8] * other.matrix[14] + matrix[12] * other.matrix[15];
-
-    result.matrix[1] = matrix[1] * other.matrix[0] + matrix[5] * other.matrix[1] + matrix[9] * other.matrix[2] + matrix[13] * other.matrix[3];
-    result.matrix[5] = matrix[1] * other.matrix[4] + matrix[5] * other.matrix[5] + matrix[9] * other.matrix[6] + matrix[13] * other.matrix[7];
-    result.matrix[9] = matrix[1] * other.matrix[8] + matrix[5] * other.matrix[9] + matrix[9] * other.matrix[10] + matrix[13] * other.matrix[11];
-    result.matrix[13] = matrix[1] * other.matrix[12] + matrix[5] * other.matrix[13] + matrix[9] * other.matrix[14] + matrix[13] * other.matrix[15];
-
-    result.matrix[2] = matrix[2] * other.matrix[0] + matrix[6] * other.matrix[4] + matrix[10] * other.matrix[8] + matrix[14] * other.matrix[12];
-    result.matrix[6] = matrix[2] * other.matrix[4] + matrix[6] * other.matrix[5] + matrix[10] * other.matrix[9] + matrix[14] * other.matrix[13];
-    result.matrix[10] = matrix[2] * other.matrix[8] + matrix[6] * other.matrix[6] + matrix[10] * other.matrix[10] + matrix[14] * other.matrix[14];
-    result.matrix[14] = matrix[2] * other.matrix[12] + matrix[6] * other.matrix[7] + matrix[10] * other.matrix[11] + matrix[14] * other.matrix[15];
-
-    result.matrix[3] = matrix[3] * other.matrix[0] + matrix[7] * other.matrix[4] + matrix[11] * other.matrix[8] + matrix[15] * other.matrix[3];
-    result.matrix[7] = matrix[3] * other.matrix[4] + matrix[7] * other.matrix[5] + matrix[11] * other.matrix[9] + matrix[15] * other.matrix[7];
-    result.matrix[11] = matrix[3] * other.matrix[8] + matrix[7] * other.matrix[6] + matrix[11] * other.matrix[10] + matrix[15] * other.matrix[11];
-    result.matrix[15] = matrix[3] * other.matrix[12] + matrix[7] * other.matrix[7] + matrix[11] * other.matrix[11] + matrix[15] * other.matrix[15];*/
-
-
-    //result.matrix[0] = matrix[0] * other.matrix[0] + matrix[1] * other.matrix[4] + matrix[2] * other.matrix[8] + matrix[3] * other.matrix[12];        //
-    //result.matrix[4] = matrix[4] * other.matrix[0] + matrix[5] * other.matrix[4] + matrix[6] * other.matrix[8] + matrix[7] * other.matrix[12];        //
-    //result.matrix[8] = matrix[8] * other.matrix[0] + matrix[9] * other.matrix[4] + matrix[10] * other.matrix[8] + matrix[11] * other.matrix[12];      //
-    //result.matrix[12] = matrix[12] * other.matrix[0] + matrix[13] * other.matrix[4] + matrix[14] * other.matrix[8] + matrix[15] * other.matrix[12];   //
-
-    //result.matrix[1] = matrix[0] * other.matrix[1] + matrix[1] * other.matrix[5] + matrix[2] * other.matrix[9] + matrix[3] * other.matrix[13];        //
-    //result.matrix[5] = matrix[4] * other.matrix[1] + matrix[5] * other.matrix[5] + matrix[6] * other.matrix[9] + matrix[7] * other.matrix[13];        //
-    //result.matrix[9] = matrix[8] * other.matrix[1] + matrix[9] * other.matrix[5] + matrix[10] * other.matrix[9] + matrix[11] * other.matrix[13]; 
-    //result.matrix[13] = matrix[12] * other.matrix[1] + matrix[13] * other.matrix[5] + matrix[14] * other.matrix[9] + matrix[15] * other.matrix[13];   
-
-    //result.matrix[2] = matrix[0] * other.matrix[2] + matrix[1] * other.matrix[6] + matrix[2] * other.matrix[10] + matrix[3] * other.matrix[14];      
-    //result.matrix[6] = matrix[4] * other.matrix[2] + matrix[5] * other.matrix[6] + matrix[6] * other.matrix[10] + matrix[7] * other.matrix[14];      
-    //result.matrix[10] = matrix[8] * other.matrix[2] + matrix[9] * other.matrix[6] + matrix[10] * other.matrix[10] + matrix[11] * other.matrix[14];    
-    //result.matrix[14] = matrix[12] * other.matrix[2] + matrix[13] * other.matrix[6] + matrix[14] * other.matrix[10] + matrix[15] * other.matrix[14];   
-
-    //result.matrix[3] = matrix[0] * other.matrix[3] + matrix[1] * other.matrix[7] + matrix[2] * other.matrix[11] + matrix[3] * other.matrix[15];       
-    //result.matrix[7] = matrix[4] * other.matrix[3] + matrix[5] * other.matrix[7] + matrix[6] * other.matrix[11] + matrix[7] * other.matrix[15];       
-    //result.matrix[11] = matrix[8] * other.matrix[3] + matrix[9] * other.matrix[7] + matrix[10] * other.matrix[11] + matrix[11] * other.matrix[15];    
-    //result.matrix[15] = matrix[12] * other.matrix[3] + matrix[13] * other.matrix[7] + matrix[14] * other.matrix[11] + matrix[15] * other.matrix[15];
-
     return result;
   }
 
