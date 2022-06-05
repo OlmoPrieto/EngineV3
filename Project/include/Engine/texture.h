@@ -1,6 +1,9 @@
 #pragma once
 
 #include <cstdint>
+#include <filesystem>
+
+#include "Engine/types.h"
 
 class Texture
 {
@@ -41,8 +44,7 @@ public:
     ClampToEdge
   };
 
-  Texture(uint32_t _uWidth, uint32_t _uHeight, uint32_t _uDepth = 4, 
-    Format _eFormat = Format::RGBA, Type _eType = Type::Texture2D);
+  Texture();
   ~Texture();
 
   void setFormat(Format _eFormat);
@@ -69,10 +71,13 @@ public:
   
   bool getIsReady() const { return m_bReady; }
 
+  bool load(const std::filesystem::path& _sPath);
+
 private:
   friend class OpenGLImplementation;
 
-  unsigned char* m_pData = nullptr;
+  std::filesystem::path m_sPath;
+  byte* m_pData = nullptr;
   Type m_eType = Type::Texture2D;
   Format m_eFormat = Format::RGBA;
   Filter m_eMinFilter = Filter::Nearest;
