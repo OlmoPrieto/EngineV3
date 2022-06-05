@@ -1,9 +1,9 @@
 #include <iostream>
 
-#include "chrono.h"
-#include "input.h"
-#include "engine.h"
-#include "scene.h"
+#include "Engine/chrono.h"
+#include "Engine/input.h"
+#include "Engine/engine.h"
+#include "Engine/scene.h"
 
 #ifdef __PLATFORM_MACOSX__
   #include <OpenGL/gl3.h>
