@@ -287,6 +287,7 @@ void OpenGLImplementation::uploadTexture(Texture& _oTexture_)
   // TODO: switch for filters
   assert(_oTexture_.m_eMinFilter == Texture::Filter::Linear);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
   assert(_oTexture_.m_eMagFilter == Texture::Filter::Linear);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
@@ -332,6 +333,8 @@ void OpenGLImplementation::uploadTexture(Texture& _oTexture_)
 
   if (_oTexture_.getGenerateMipMaps())
     glGenerateMipmap(GL_TEXTURE_2D);
+
+  glBindTexture(GL_TEXTURE_2D, 0);
 
   _oTexture_.m_bReady = true;
 }

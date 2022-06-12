@@ -50,10 +50,10 @@ std::shared_ptr<MaterialInstance> Material::CreateSpriteMaterial()
   std::string sFragmentSource =
     "#version 330\n"
     "in vec2 vertex_uv;\n"
+    "uniform sampler2D textureImage;\n"
     "void main()\n"
     "{\n"
-    //"  gl_FragColor = vec4(vertex_uv.x, vertex_uv.y, 0.0, 1.0);\n"
-    "  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n"
+    "  gl_FragColor = texture(textureImage, vertex_uv);\n"
     "}\n"
   ;
 
@@ -64,6 +64,7 @@ std::shared_ptr<MaterialInstance> Material::CreateSpriteMaterial()
   oMaterial.m_oProgram.attachShader(&oMaterial.m_vctShaders[1]);
 
   oMaterial.m_dctAttributesTable.emplace("MVP", ValueType::Mat4);
+  oMaterial.m_dctAttributesTable.emplace("textureImage", ValueType::Texture);
 
   //
 
@@ -75,9 +76,9 @@ std::shared_ptr<MaterialInstance> Material::CreateSpriteMaterial()
   std::unordered_map<std::string, ValueType>::iterator itAttribute = oMaterial.m_dctAttributesTable.begin();
   while (itAttribute != oMaterial.m_dctAttributesTable.end())
   {
-    std::unique_ptr<Attribute> oMVP = std::make_unique<Attribute>(itAttribute->second, itAttribute->first);
+    std::unique_ptr<Attribute> oAttribute = std::make_unique<Attribute>(itAttribute->second, itAttribute->first);
     //oMaterialInstance.m_vctAttributes.push_back(std::move(std::make_unique<Attribute>(itAttribute->second, itAttribute->first)));
-    oMaterialInstance->m_vctAttributes.push_back(std::move(oMVP));
+    oMaterialInstance->m_vctAttributes.push_back(std::move(oAttribute));
 
     ++itAttribute;
   }

@@ -76,6 +76,8 @@ public:
 private:
   friend class OpenGLImplementation;
 
+  constexpr static bool m_sbFlipImagesOnLoad = true;
+
   std::filesystem::path m_sPath;
   byte* m_pData = nullptr;
   Type m_eType = Type::Texture2D;

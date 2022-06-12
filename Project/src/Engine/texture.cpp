@@ -94,9 +94,14 @@ bool Texture::load(const std::filesystem::path& _sPath)
   int32_t iWidth;
   int32_t iHeight;
   int32_t iDepth;
+  stbi_set_flip_vertically_on_load(m_sbFlipImagesOnLoad);
   m_pData = stbi_load(m_sPath.relative_path().string().c_str(), &iWidth, &iHeight, &iDepth, 0);
   if (!m_pData)
     return false;
+
+  m_uWidth = (uint32_t)iWidth;
+  m_uHeight = (uint32_t)iHeight;
+  m_uDepth = (uint32_t)iDepth;
 
   return true;
 }
