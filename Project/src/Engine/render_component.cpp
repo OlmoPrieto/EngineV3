@@ -38,11 +38,8 @@ void RenderComponent::generateDisplayListCommands(std::vector<std::unique_ptr<GP
 
     TransformComponent* pTransformComp = m_pOwner->getComponent<TransformComponent>("TRANSFORM");
     assert(pTransformComp);
-    //oMVP->setValue<Mat4>(pTransformComp->getWorldTransform() * mat4Projection);
-    //oMVP->setValue<Mat4>(mat4Projection * pTransformComp->getWorldTransform());
 
     oMVP->setValue<Mat4>(pTransformComp->getWorldTransform() * mat4View * mat4Projection);
-    //oMVP->setValue<Mat4>(mat4Projection * mat4View * pTransformComp->getWorldTransform());
 
     if (m_vctMaterials[i]->checkReady() == false)
       vctDisplayList_.push_back(std::make_unique<CommandPrepareMaterial>(m_vctMaterials[i]));

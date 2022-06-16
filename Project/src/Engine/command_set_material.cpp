@@ -61,16 +61,19 @@ void CommandSetMaterial::execute()
         case ValueType::Texture:
         {
           std::shared_ptr<Texture>* pTexture = pAttribute->getData<std::shared_ptr<Texture>>();
-          if (!pTexture->get()->getIsReady())
+          if (*pTexture)
           {
-            sm_oOpenGL.uploadTexture(*pTexture->get());
+            if (!pTexture->get()->getIsReady())
+            {
+              sm_oOpenGL.uploadTexture(*pTexture->get());
+            }
+
+            sm_oOpenGL.setActive(*pTexture->get());
+
+            int32_t iTextureUnit = (int32_t)pTexture->get()->getTextureUnit();
+            sm_oOpenGL.setUniformValue(sm_oOpenGL.getUniformLocation(oProgram, pAttribute->getName().c_str()),
+              eType, &iTextureUnit);
           }
-
-          int32_t iTextureUnit = (int32_t)pTexture->get()->getTextureUnit();
-          sm_oOpenGL.setUniformValue(sm_oOpenGL.getUniformLocation(oProgram, pAttribute->getName().c_str()),
-            eType, &iTextureUnit);
-
-          sm_oOpenGL.setActive(*pTexture->get());
 
           break;
         }

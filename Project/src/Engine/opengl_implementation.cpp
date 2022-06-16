@@ -344,7 +344,8 @@ void OpenGLImplementation::setActive(const Texture& _oTexture)
   int32_t iId = _oTexture.getInternalId();
   assert((iId > -1 && _oTexture.getIsReady() == true) && "Invalid texture");
 
-  glActiveTexture(_oTexture.getTextureUnit());
+  glActiveTexture(GL_TEXTURE0 + _oTexture.getTextureUnit());
+
   switch (_oTexture.getType())
   {
     case Texture::Type::Texture2D:

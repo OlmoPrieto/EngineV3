@@ -35,20 +35,20 @@ void Scene::init()
   pTextureAttribute->setValue(m_oTextureTest);
 
   std::unique_ptr<TransformComponent> oTransformComponent = std::make_unique<TransformComponent>();
-  oTransformComponent->setPosition(0.0f, 0.0f, -20.0f);
+  oTransformComponent->setPosition(0.0f, 0.0f, -50.0f);
   //oTransformComponent->setPosition(0.0f, 0.0f, 0.0f);
-  oTransformComponent->setScale(10.0f, 10.0f, 1.0f);
+  oTransformComponent->setScale(5.0f, 5.0f, 5.0f);
   m_oRoot.addComponent(std::move(oRenderComponent));
   m_oRoot.addComponent(std::move(oTransformComponent));
 
   std::unique_ptr<Node> pNewNode = std::make_unique<Node>();
   std::unique_ptr<RenderComponent> oRenderComponent2 = std::make_unique<RenderComponent>();
-  vctMaterialInstances = oRenderComponent2->getMaterialInstances();
-  std::unique_ptr<Attribute>& pTextureAttribute2 = vctMaterialInstances[0]->getAttribute("textureImage");
+  std::vector<std::shared_ptr<MaterialInstance>>&vctMaterialInstances2 = oRenderComponent2->getMaterialInstances();
+  std::unique_ptr<Attribute>& pTextureAttribute2 = vctMaterialInstances2[0]->getAttribute("textureImage");
   pTextureAttribute2->setValue(m_oTextureTest);
 
   std::unique_ptr<TransformComponent> oTransformComponent2 = std::make_unique<TransformComponent>();
-  oTransformComponent2->setPosition(10.0f, 0.0f, 0.0f);
+  oTransformComponent2->setPosition(15.0f, 0.0f, 0.0f);
   //oTransformComponent2->setScale(100.0f, 100.0f, 1.0f);
   oTransformComponent2->setScale(1.0f, 1.0f, 1.0f);
   pNewNode->m_sName = "child";

@@ -19,20 +19,15 @@ std::shared_ptr<Model3D> Model3D::CreateQuad()
 {
   std::vector<float> vctPositions(
   {
-    /*-1.0f,  1.0f, 0.0f,
+    -1.0f,  1.0f, 0.0f,
     -1.0f, -1.0f, 0.0f,
-     1.0f,  1.0f, 0.0f,
-     1.0f, -1.0f, 0.0f*/
-     
-    /*-0.5f,  0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f,
-     0.5f,  0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f*/
+     1.0f, -1.0f, 0.0f,
+     1.0f,  1.0f, 0.0f
 
-     -0.5f,  0.5f, 0.0f,
+     /*-0.5f,  0.5f, 0.0f,
      -0.5f, -0.5f, 0.0f,
       0.5f, -0.5f, 0.0f,
-      0.5f,  0.5f, 0.0f
+      0.5f,  0.5f, 0.0f*/
   });
   std::vector<float> vctNormals(
   {
@@ -50,7 +45,6 @@ std::shared_ptr<Model3D> Model3D::CreateQuad()
   });
   std::vector<uint32_t> vctIndices(
   {
-    //0, 1, 2, 3, 2, 1
     0, 1, 2, 2, 3, 0
   });
 
