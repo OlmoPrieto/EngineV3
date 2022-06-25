@@ -141,7 +141,7 @@ struct Vec3
     x = other.x; y = other.y; z = z_;
   }
 
-  void Vec3::set(float _fX, float _fY, float _fZ)
+  void set(float _fX, float _fY, float _fZ)
   {
     x = _fX; y = _fY; z = _fZ;
   }

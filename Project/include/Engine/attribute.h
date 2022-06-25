@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <cassert>
 
 #include "maths.h"
 #include "texture.h"
@@ -58,31 +59,7 @@ public:
   bool getIsReady() const { return m_bDirty; }
 
   template <class T>
-  void setValue(const T& _oT) {}
-
-  template <>
-  void setValue<float>(const float& _fValue)
-  {
-    *(float*)m_pData = _fValue;
-  }
-
-  template <>
-  void setValue<uint32_t>(const uint32_t& _uValue)
-  {
-    *(uint32_t*)m_pData = _uValue;
-  }
-
-  template <>
-  void setValue<Mat4>(const Mat4& _mat4Value)
-  {
-    *(Mat4*)m_pData = _mat4Value;
-  }
-
-  template <>
-  void setValue<std::shared_ptr<Texture>>(const std::shared_ptr<Texture>& _oValue)
-  {
-    *(std::shared_ptr<Texture>*)m_pData = _oValue;
-  }
+  void setValue(const T& _oT) { assert(false); }
 
   //
 

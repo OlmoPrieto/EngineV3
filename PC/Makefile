@@ -6,18 +6,23 @@ ifndef config
 endif
 export config
 
-PROJECTS := Project
+PROJECTS := Engine Game
 
 .PHONY: all clean help $(PROJECTS)
 
 all: $(PROJECTS)
 
-Project: 
-	@echo "==== Building Project ($(config)) ===="
-	@${MAKE} --no-print-directory -C ../Project -f Makefile
+Game: 
+	@echo "==== Building Game ($(config)) ===="
+	@${MAKE} --no-print-directory -C ../Project -f Game.make
+
+Engine: 
+	@echo "==== Building Engine ($(config)) ===="
+	@${MAKE} --no-print-directory -C ../Project -f Engine.make
 
 clean:
-	@${MAKE} --no-print-directory -C ../Project -f Makefile clean
+	@${MAKE} --no-print-directory -C ../Project -f Game.make clean
+	@${MAKE} --no-print-directory -C ../Project -f Engine.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -33,6 +38,7 @@ help:
 	@echo "TARGETS:"
 	@echo "   all (default)"
 	@echo "   clean"
-	@echo "   Project"
+	@echo "   Game"
+	@echo "   Engine"
 	@echo ""
 	@echo "For more information, see https://github.com/bkaradzic/genie"

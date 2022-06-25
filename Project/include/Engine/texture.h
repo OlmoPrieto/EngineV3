@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include <filesystem>
+#include <experimental/filesystem>
 
 #include "Engine/types.h"
 
@@ -71,14 +71,14 @@ public:
   
   bool getIsReady() const { return m_bReady; }
 
-  bool load(const std::filesystem::path& _sPath);
+  bool load(const std::experimental::filesystem::path& _sPath);
 
 private:
   friend class OpenGLImplementation;
 
   constexpr static bool m_sbFlipImagesOnLoad = true;
 
-  std::filesystem::path m_sPath;
+  std::experimental::filesystem::path m_sPath;
   byte* m_pData = nullptr;
   Type m_eType = Type::Texture2D;
   Format m_eFormat = Format::RGBA;

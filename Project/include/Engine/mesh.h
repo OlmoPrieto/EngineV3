@@ -1,6 +1,7 @@
-#ifndef __MESH_H__
-#define __MESH_H__
+#pragma once
 
+#include <cstdint>
+#include <string>
 #include <vector>
 
 class Mesh
@@ -35,5 +36,3 @@ private:
   bool m_bNormalsEnabled = false;
   bool m_bUVsEnabled = false;
 };
-
-#endif // __MESH_H__
