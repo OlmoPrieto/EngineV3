@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <experimental/filesystem>
 
 #include "Engine/types.h"
 #include "Engine/asset_manager.h"
@@ -71,16 +72,16 @@ public:
   bool getGenerateMipMaps() const { return m_bGenerateMips; }
   
   bool getIsReady() const { return m_bReady; }
-
+  
 private:
   // Asset 
-  bool load(const std::filesystem::path& _sPath) override;
+  bool load(const std::experimental::filesystem::path& _sPath) override;
   friend class AssetManager;
   friend class OpenGLImplementation;
 
   constexpr static bool m_sbFlipImagesOnLoad = true;
 
-  std::filesystem::path m_sPath;
+  std::experimental::filesystem::path m_sPath;
   byte* m_pData = nullptr;
   Type m_eType = Type::Texture2D;
   Format m_eFormat = Format::RGBA;

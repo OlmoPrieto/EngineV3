@@ -17,7 +17,7 @@ RenderComponent::RenderComponent()
   //for (std::shared_ptr<Mesh>& pMesh : m_spModel->getMeshes())
   for (uint32_t i = 0; i < m_spModel->getMeshes().size(); ++i)
   {
-    m_vctMaterials.push_back(Material::CreateSpriteMaterial());
+    m_vctMaterials.push_back(Material::CreateSpriteMaterial2());
   }
 }
 

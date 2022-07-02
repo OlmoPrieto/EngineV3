@@ -38,6 +38,7 @@ void Scene::init()
   oTransformComponent->setPosition(0.0f, 0.0f, -50.0f);
   //oTransformComponent->setPosition(0.0f, 0.0f, 0.0f);
   oTransformComponent->setScale(5.0f, 5.0f, 5.0f);
+  //oTransformComponent->setScale(1.0f, 1.0f, 1.0f);
   m_oRoot.addComponent(std::move(oRenderComponent));
   m_oRoot.addComponent(std::move(oTransformComponent));
 

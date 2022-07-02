@@ -79,3 +79,28 @@ Attribute::~Attribute()
     delete m_pData;
   }
 }
+
+// NOTE: gcc -> Specialization must be done outside class declaration
+template <>
+void Attribute::setValue<float>(const float& _fValue)
+{
+  *(float*)m_pData = _fValue;
+}
+
+template <>
+void Attribute::setValue<uint32_t>(const uint32_t& _uValue)
+{
+  *(uint32_t*)m_pData = _uValue;
+}
+
+template <>
+void Attribute::setValue<Mat4>(const Mat4& _mat4Value)
+{
+  *(Mat4*)m_pData = _mat4Value;
+}
+
+template <>
+void Attribute::setValue<std::shared_ptr<Texture>>(const std::shared_ptr<Texture>& _oValue)
+{
+  *(std::shared_ptr<Texture>*)m_pData = _oValue;
+}

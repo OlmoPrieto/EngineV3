@@ -114,7 +114,8 @@ solution "Project"
           solution_dir .. "/dependencies/GLFW/src/xkb_unicode.c",
       }
       links {
-        "X11", "Xrandr", "Xcursor", "Xinerama", "Xi", "Xxf86vm", "rt", "pthread", "GL", "glut", "GLU", "m"
+        -- https://stackoverflow.com/questions/33149878/experimentalfilesystem-linker-error
+        "X11", "Xrandr", "Xcursor", "Xinerama", "Xi", "Xxf86vm", "rt", "pthread", "GL", "glut", "GLU", "m", "stdc++fs"
       }
       includedirs {
         "/usr/include/GL/"
@@ -240,7 +241,8 @@ solution "Project"
           solution_dir .. "/dependencies/GLFW/src/xkb_unicode.c",
       }
       links {
-        "X11", "Xrandr", "Xcursor", "Xinerama", "Xi", "Xxf86vm", "rt", "pthread", "GL", "glut", "GLU", "m"
+        -- https://stackoverflow.com/questions/33149878/experimentalfilesystem-linker-error
+        "X11", "Xrandr", "Xcursor", "Xinerama", "Xi", "Xxf86vm", "rt", "pthread", "GL", "glut", "GLU", "m", "stdc++fs"
       }
       includedirs {
         "/usr/include/GL/"
