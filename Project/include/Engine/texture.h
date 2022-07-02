@@ -1,11 +1,11 @@
 #pragma once
 
 #include <cstdint>
-#include <filesystem>
 
 #include "Engine/types.h"
+#include "Engine/asset_manager.h"
 
-class Texture
+class Texture : public Asset
 {
 public:
   enum class Type
@@ -47,6 +47,7 @@ public:
   Texture();
   ~Texture();
 
+  // Texture
   void setFormat(Format _eFormat);
   void setMinFilter(Filter _eMinFilter) { m_eMinFilter = _eMinFilter; m_bReady = false; }
   void setMagFilter(Filter _eMagFilter) { m_eMagFilter = _eMagFilter; m_bReady = false; }
@@ -71,9 +72,10 @@ public:
   
   bool getIsReady() const { return m_bReady; }
 
-  bool load(const std::filesystem::path& _sPath);
-
 private:
+  // Asset 
+  bool load(const std::filesystem::path& _sPath) override;
+  friend class AssetManager;
   friend class OpenGLImplementation;
 
   constexpr static bool m_sbFlipImagesOnLoad = true;

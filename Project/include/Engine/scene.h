@@ -20,5 +20,4 @@ public:
 private:
   Node m_oRoot;
   Camera m_oCamera;
-  std::shared_ptr<Texture> m_oTextureTest;
 };
