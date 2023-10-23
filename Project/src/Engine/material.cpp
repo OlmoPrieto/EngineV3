@@ -182,7 +182,7 @@ bool MaterialInstance::checkReady()
   return m_bReady;
 }
 
-std::unique_ptr<Attribute>& MaterialInstance::getAttribute(const std::string & _sName)
+std::unique_ptr<Attribute>& MaterialInstance::getAttribute(const std::string& _sName)
 {
   for (std::unique_ptr<Attribute>& pAttribute : m_vctAttributes)
   {

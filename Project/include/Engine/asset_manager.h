@@ -27,11 +27,10 @@ public:
   template <class TAssetType>
   std::shared_ptr<TAssetType> loadAsset(const std::filesystem::path& _sPath)
   {
-    TAssetType oAsset;
-    if (oAsset.load(_sPath))
+    std::shared_ptr<TAssetType> pAsset = std::make_shared<TAssetType>();
+    if (pAsset->load(_sPath))
     {
       std::string sPath = _sPath.string();
-      std::shared_ptr<TAssetType> pAsset = std::make_shared<TAssetType>(oAsset);
       m_dctAssetDictionary[sPath] = pAsset;
       return pAsset;
     }

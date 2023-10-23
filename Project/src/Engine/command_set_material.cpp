@@ -1,5 +1,7 @@
 #include "Engine/command_set_material.h"
+
 #include "Engine/texture.h"
+#include "Engine/maths.h"
 
 CommandSetMaterial::CommandSetMaterial(std::shared_ptr<MaterialInstance> _spMaterial)
   : m_spMaterial(_spMaterial)

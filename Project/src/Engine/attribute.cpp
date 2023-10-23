@@ -1,6 +1,7 @@
 #include "Engine/attribute.h"
 
-#include <cassert>
+#include "Engine/texture.h"
+#include "Engine/maths.h"
 
 Attribute::Attribute(ValueType _eType, const std::string& _sName)
   : m_eType(_eType)

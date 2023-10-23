@@ -3,9 +3,6 @@
 #include <string>
 #include <cassert>
 
-#include "maths.h"
-#include "texture.h"
-
 //
 enum class ValueType
 {
@@ -59,7 +56,7 @@ public:
   bool getIsReady() const { return m_bDirty; }
 
   template <class T>
-  void setValue(const T& _oT) { assert(false); }
+  void setValue(const T& _oT);// { assert(false); }
 
   //
 

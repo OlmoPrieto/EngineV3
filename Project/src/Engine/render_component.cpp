@@ -6,6 +6,7 @@
 #include "Engine/command_prepare_mesh.h"
 #include "Engine/command_set_material.h"
 #include "Engine/engine.h"
+#include "Engine/node.h"
 #include "Engine/transform_component.h"
 
 std::string RenderComponent::sm_sName = "RENDER";
@@ -17,7 +18,7 @@ RenderComponent::RenderComponent()
   //for (std::shared_ptr<Mesh>& pMesh : m_spModel->getMeshes())
   for (uint32_t i = 0; i < m_spModel->getMeshes().size(); ++i)
   {
-    m_vctMaterials.push_back(Material::CreateSpriteMaterial2());
+    m_vctMaterials.push_back(Material::CreateSpriteMaterial());
   }
 }
 

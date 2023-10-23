@@ -2,10 +2,9 @@
 
 #include <memory>
 
-#include "component.h"
-#include "material.h"
-#include "model3d.h"
-#include "node.h"
+#include "Engine/component.h"
+#include "Engine/material.h"
+#include "Engine/model3d.h"
 
 class GPUCommand;
 
