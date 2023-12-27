@@ -23,6 +23,7 @@ Scene::~Scene()
 
 void Scene::init()
 {
+  printf("INIT\n");
   std::unique_ptr<RenderComponent> oRenderComponent = std::make_unique<RenderComponent>();
   std::vector<std::shared_ptr<MaterialInstance>>& vctMaterialInstances = oRenderComponent->getMaterialInstances();
   std::unique_ptr<Attribute>& pTextureAttribute = vctMaterialInstances[0]->getAttribute("textureImage");
@@ -33,7 +34,7 @@ void Scene::init()
   oTexture->setMagFilter(Texture::Filter::Linear);
   oTexture->setFormat(Texture::Format::RGBA);
   pTextureAttribute->setValue(oTexture);
-
+  printf("AFTER FIRST TEXTURE\n");
   std::unique_ptr<TransformComponent> oTransformComponent = std::make_unique<TransformComponent>();
   oTransformComponent->setPosition(0.0f, 0.0f, -50.0f);
   //oTransformComponent->setPosition(0.0f, 0.0f, 0.0f);

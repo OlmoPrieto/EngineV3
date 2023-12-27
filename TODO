@@ -14,3 +14,10 @@
   - In the future, have an IO manager. Even if making a simple thing first, use C++ filesystem.
 
 - Add Dear ImGui.
+
+-------------------------
+
+27/12/23
+- Revise this list, there are things completed.
+
+- Made the project work on linux. The problem is that exe.sh executes the makefiles from that directory and filesystem uses that path to generate the absolute path. Even if you put "../" to the assets path, it doesn't work. I need to use absolute path and replace "PC/" from the path (where the exe.sh is launched from) with "Project/". The correct way of doing this might be to set the working directory to assets or something like that. Maybe the replacing option could work too.

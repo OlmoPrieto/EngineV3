@@ -1,6 +1,7 @@
 #include "Engine/texture.h"
 
 #include <cassert>
+#include <iostream>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
@@ -95,7 +96,22 @@ bool Texture::load(const std::filesystem::path& _sPath)
   int32_t iHeight;
   int32_t iDepth;
   stbi_set_flip_vertically_on_load(m_sbFlipImagesOnLoad);
-  m_pData = stbi_load(m_sPath.relative_path().string().c_str(), &iWidth, &iHeight, &iDepth, 0);
+  printf("%s\n", std::filesystem::absolute(m_sPath).string().c_str());
+  //m_pData = stbi_load(std::filesystem::absolute(m_sPath).string().c_str(), &iWidth, &iHeight, &iDepth, 0);
+  std::string sModifiedPath = std::filesystem::absolute(m_sPath).string();
+  size_t uPCIndex = sModifiedPath.find("PC/", 0u);
+  if (uPCIndex != std::string::npos)
+  {
+    sModifiedPath.replace(uPCIndex, sizeof("PC/")-1, "Project/");
+    printf("%s\n", sModifiedPath.c_str());
+  }
+  m_pData = stbi_load(sModifiedPath.c_str(), &iWidth, &iHeight, &iDepth, 0);
+  //m_pData = stbi_load(m_sPath.relative_path().string().c_str(), &iWidth, &iHeight, &iDepth, 0);
+  if (stbi_failure_reason())
+  {
+    std::cout << stbi_failure_reason() << std::endl;
+  }
+  printf("no llega no?\n");
   if (!m_pData)
     return false;
 
